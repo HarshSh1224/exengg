@@ -31,6 +31,7 @@ class Product with ChangeNotifier {
     required this.categoryId,
     this.isFavourite = false,
   });
+
   void toggleFavourite() async {
     isFavourite = !isFavourite;
     Map<String, bool> favData = {};

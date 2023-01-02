@@ -114,7 +114,7 @@ class SideDrawer extends StatelessWidget {
                           color: Colors.white,
                           size: 25,
                         ), () {
-                      Navigator.of(context).pushNamed(AboutUsScreen.routeName);
+                      Navigator.of(context).pushNamed(About.routeName);
                     }),
                     SizedBox(
                       height: 20,
@@ -152,9 +152,10 @@ class SideDrawer extends StatelessWidget {
               ],
             ),
           ),
-          ClipRRect(
-            borderRadius:
-                BorderRadius.only(bottomRight: Radius.elliptical(400, 100)),
+          ClipPath(
+            clipper: CustomClipPath(),
+            // borderRadius:
+            //     BorderRadius.only(bottomRight: Radius.elliptical(400, 100)),
             child: Container(
               margin: EdgeInsets.zero,
               width: double.infinity,
@@ -206,5 +207,25 @@ class SideDrawer extends StatelessWidget {
     // color: Color(0XFF031929),
     // child: Text('data'),
     // );
+  }
+}
+
+class CustomClipPath extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    Path path0 = Path();
+    path0.moveTo(0, 0);
+    path0.lineTo(0, size.height - 30);
+    path0.quadraticBezierTo(
+        size.width * 0.6, size.height - 10, size.width, size.height - 65);
+    // path0.lineTo(size.width, size.height);
+    path0.lineTo(size.width, 0);
+    path0.close();
+    return path0;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) {
+    return true;
   }
 }

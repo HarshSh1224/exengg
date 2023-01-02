@@ -168,14 +168,24 @@ class _ProductItemState extends State<ProductItem> {
                         ),
                         textAlign: TextAlign.left,
                       ),
-                      trailing: Text(
-                        '₹ ${widget.productItem.price.toString()}',
-                        style: TextStyle(
-                            fontSize: 20,
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onTertiaryContainer),
-                      ),
+                      trailing: widget.productItem.price == -1
+                          ? Chip(
+                              elevation: 2,
+                              backgroundColor: Theme.of(context)
+                                  .colorScheme
+                                  .tertiaryContainer,
+                              shadowColor: Theme.of(context).colorScheme.shadow,
+                              label: Text('Exchange'),
+                              avatar: Icon(Icons.handshake),
+                            )
+                          : Text(
+                              '₹ ${widget.productItem.price.toString()}',
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onTertiaryContainer),
+                            ),
                     ),
                     Text(
                       // 'clwkncklwencweilncwelcnwioenc wec wec w ecwe cwe dwec wce wec weeknwelkn cweklcnwec klwncwec klncwec ,,w cenklwcklwnc kljdcslnskldn klsnd klsdnklj klsn klsdj klsdj klsdd klsdn sdkln klsn kls nskln ns bs sahjsjabsxjkasbxkjabsxbkncklb weklnwcelkbnwe wcelkncwklc wklncwec qklncqklc ',

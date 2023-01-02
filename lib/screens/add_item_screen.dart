@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:dart_ipify/dart_ipify.dart';
 import 'package:exengg/widgets/category_dropdown_button.dart';
 import 'package:exengg/widgets/image_picker.dart';
+import 'package:exengg/widgets/method_show_dialog.dart';
 import 'package:exengg/widgets/side_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -108,6 +109,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
       return;
     }
     if (!_formKey.currentState!.validate()) {
+      print('Validation Failed');
       return;
     }
     _formKey.currentState!.save();
@@ -222,19 +224,31 @@ class _AddItemScreenState extends State<AddItemScreen> {
     int? maxLines,
   ]) {
     return TextFormField(
+      enabled: title == 'Price' ? !checkboxValue : true,
       initialValue: _isUpdate ? _initialValueFromTitle(title) : null,
       maxLength: maxLines == null ? null : 200,
       keyboardType: keyboardType,
       maxLines: maxLines,
+      style: title == 'Price' && checkboxValue == true
+          ? TextStyle(color: Theme.of(context).colorScheme.surfaceVariant)
+          : null,
       decoration: InputDecoration(
+        // disabledBorder: InputBorder.none,
         alignLabelWithHint: true,
         labelText: title,
         labelStyle: TextStyle(
-            color: Theme.of(context).colorScheme.onSecondaryContainer),
-        border: OutlineInputBorder(),
+          color: title == 'Price' && checkboxValue == true
+              ? Theme.of(context).colorScheme.surfaceVariant
+              : Theme.of(context).colorScheme.onSecondaryContainer,
+        ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
         prefixIcon: maxLines == null
             ? Icon(icon,
-                color: Theme.of(context).colorScheme.onSecondaryContainer)
+                color: (title == 'Price' && checkboxValue == true
+                    ? Theme.of(context).colorScheme.surfaceVariant
+                    : Theme.of(context).colorScheme.onSecondaryContainer))
             : Padding(
                 padding: const EdgeInsets.only(bottom: 58),
                 child: Icon(
@@ -252,10 +266,14 @@ class _AddItemScreenState extends State<AddItemScreen> {
         if (title == 'Description' && value!.length < 10) {
           return 'Description should be min 10 characters long';
         }
-        if (title == 'Price' && double.tryParse(value!) == null) {
+        if (checkboxValue == false &&
+            title == 'Price' &&
+            double.tryParse(value!) == null) {
           return 'Please enter a valid number';
         }
-        if (title == 'Price' && double.parse(value!) < 0) {
+        if (checkboxValue == false &&
+            title == 'Price' &&
+            double.parse(value!) < 0) {
           return 'Please enter a valid number';
         }
         if (title == 'Phone Number' && double.tryParse(value!) == null) {
@@ -269,14 +287,20 @@ class _AddItemScreenState extends State<AddItemScreen> {
       onSaved: (value) {
         if (title == 'Product Title') formData['title'] = value!;
         if (title == 'Description') formData['description'] = value!;
-        if (title == 'Price') formData['price'] = double.parse(value!);
+        if (title == 'Price')
+          formData['price'] =
+              checkboxValue == true ? -1.0 : double.parse(value!);
         if (title == 'Phone Number') formData['phone'] = value!;
       },
     );
   }
 
+  bool _shownAlert = false;
+  bool checkboxValue = false;
+
   GlobalKey<dynamic>? _scaffoldKey = GlobalKey<ScaffoldState>();
   // AddItemScreen({super.key});
+  bool _onlyOnce = true;
   @override
   Widget build(BuildContext context) {
     final argumentsData =
@@ -291,20 +315,30 @@ class _AddItemScreenState extends State<AddItemScreen> {
         'imageUrl': argumentsData['update'].imageUrl,
         'title': argumentsData['update'].title,
         'description': argumentsData['update'].description,
-        'price': argumentsData['update'].price,
+        'price': argumentsData['update'].price <= 0
+            ? 0
+            : argumentsData['update'].price,
         'phone': argumentsData['update'].phoneNumber,
         'createDate': argumentsData['update'].createDate.toIso8601String(),
         'creatorId': argumentsData['update'].creatorId,
         'creatorIP': argumentsData['update'].creatorIP,
       };
+      if (argumentsData['update'].price == -1 && _onlyOnce) {
+        checkboxValue = true;
+        _onlyOnce = false;
+      }
     }
 
-    print(formData);
+    // print(formData);
 
     return Scaffold(
       body: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (_, snapshot) {
+          if (!_shownAlert && snapshot.hasData) {
+            _shownAlert = true;
+            Future.delayed(Duration.zero, () => showGuidelinesDialog(context));
+          }
           return !snapshot.hasData
               ? AuthScreen()
               : !(Provider.of<Auth>(context, listen: false).isAuth)
@@ -415,11 +449,103 @@ class _AddItemScreenState extends State<AddItemScreen> {
                                     SizedBox(
                                       height: 10,
                                     ),
-                                    _textFormFieldBuilder(
-                                        context,
-                                        'Price',
-                                        Icons.currency_rupee,
-                                        TextInputType.number),
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Flexible(
+                                          flex: 6,
+                                          child: Stack(
+                                            children: [
+                                              CheckboxListTile(
+                                                tileColor: Theme.of(context)
+                                                    .colorScheme
+                                                    .secondaryContainer,
+                                                value: checkboxValue,
+                                                onChanged: (val) {
+                                                  if (checkboxValue == false) {
+                                                    setState(() {
+                                                      checkboxValue = true;
+                                                    });
+                                                  } else if (checkboxValue ==
+                                                      true) {
+                                                    setState(() {
+                                                      checkboxValue = false;
+                                                    });
+                                                  }
+                                                },
+                                                // checkboxShape: OutlinedBorde,
+
+                                                contentPadding:
+                                                    EdgeInsets.symmetric(
+                                                        vertical: 6,
+                                                        horizontal: 3),
+                                                title: Transform.translate(
+                                                  offset: const Offset(-10, 0),
+                                                  child: Text(
+                                                    'Exchange',
+                                                    // style: TextStyle(fontSize: 14.0),
+                                                  ),
+                                                ),
+                                                controlAffinity:
+                                                    ListTileControlAffinity
+                                                        .leading,
+                                                activeColor: Theme.of(context)
+                                                    .colorScheme
+                                                    .primary,
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10)),
+                                              ),
+                                              Positioned(
+                                                right: 0,
+                                                top: 10,
+                                                child: IconButton(
+                                                  padding: EdgeInsets.all(0),
+                                                  constraints: BoxConstraints(),
+                                                  onPressed: () {
+                                                    showDialog(
+                                                        context: context,
+                                                        builder: (_) {
+                                                          return AlertDialog(
+                                                            title: Text('Info'),
+                                                            content: Text(
+                                                                'Checking this box will mark your listing type as \'Exchange\' which will show the Exchange mark when it is displayed in place of price.\nIMPORTANT : Please provide appropriate exchange deal description and include the items which are to be exchanged.'),
+                                                            actions: [
+                                                              TextButton(
+                                                                  onPressed:
+                                                                      Navigator.of(
+                                                                              context)
+                                                                          .pop,
+                                                                  child: Text(
+                                                                      'Okay'))
+                                                            ],
+                                                          );
+                                                        });
+                                                  },
+                                                  icon: Icon(
+                                                    Icons.info_outline,
+                                                    size: 20,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Flexible(
+                                          flex: 4,
+                                          child: _textFormFieldBuilder(
+                                              context,
+                                              'Price',
+                                              Icons.currency_rupee,
+                                              TextInputType.number),
+                                        ),
+                                      ],
+                                    ),
                                     SizedBox(
                                       height: 10,
                                     ),

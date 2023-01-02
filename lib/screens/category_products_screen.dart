@@ -32,6 +32,8 @@ class CategoryProductsScreen extends StatelessWidget {
         ),
         elevation: 0,
         backgroundColor: Colors.black.withOpacity(0),
+        scrolledUnderElevation: 0,
+        surfaceTintColor: Colors.transparent,
         actions: [
           IconButton(
             onPressed: themeChanger,

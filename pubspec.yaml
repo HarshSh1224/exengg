@@ -43,6 +43,7 @@ dependencies:
   dart_ipify: ^1.1.1
   get_storage: ^2.0.3
   get:
+  url_launcher: ^6.0.12
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -93,6 +94,28 @@ flutter:
     - assets/images/moon_bg.jpeg
     - assets/images/check.gif
     - assets/images/nacho.png
+    - assets/images/about/nagar.jpeg
+    - assets/images/about/kumar.jpg
+    - assets/images/about/sharma.jpg
+    - assets/images/about/raghu.jpg
+    - assets/images/about/bg.jpg
+    - assets/images/flutter.png
+    - assets/images/linkedin.png
+    - assets/images/at_the_rate.png
+    - assets/images/feedback/1.png
+    - assets/images/feedback/2.png
+    - assets/images/feedback/3.png
+    - assets/images/feedback/4.png
+    - assets/images/feedback/5.png
+    - assets/images/feedback/6.png
+    - assets/images/feedback/7.png
+    # - assets/painting3.jpg
+    # - assets/painting4.jpg
+    # - assets/painting5.jpg
+    # - assets/painting6.jpeg
+    # - assets/painting7.jpg
+    # - assets/painting8.jpg
+    # - assets/bg.jpg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -106,7 +129,11 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
+  # fonts:
   fonts:
+    - family: timesBold
+      fonts:
+        - asset: assets/timesBold.ttf
     - family: Roboto
       fonts:
         - asset: assets/fonts/Roboto-Regular.ttf

@@ -2,66 +2,12 @@ import 'package:exengg/screens/add_item_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:dart_ipify/dart_ipify.dart';
+import '../widgets/method_show_dialog.dart';
 
 class AddItemWelcome extends StatelessWidget {
   final _scaffoldKey;
   void Function() _toggleTheme;
   AddItemWelcome(this._scaffoldKey, this._toggleTheme);
-
-  String? _ipv4;
-
-  void getIP() async {
-    _ipv4 = await Ipify.ipv4();
-    print(_ipv4);
-  }
-
-  void _showGuidelinesDialog(BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(15.0))),
-              title: Text(
-                'Guidlines',
-                style: TextStyle(
-                    fontSize: 20,
-                    color: Theme.of(context).colorScheme.onBackground),
-              ),
-              content: Container(
-                width: double.infinity,
-                child: RichText(
-                  text: TextSpan(
-                    style: TextStyle(
-                        fontSize: 17,
-                        color: Theme.of(context).colorScheme.onBackground),
-                    children: [
-                      TextSpan(
-                        text: 'The following actions are ',
-                      ),
-                      TextSpan(
-                          text: 'PROHIBITED ',
-                          style: TextStyle(fontWeight: FontWeight.bold)),
-                      TextSpan(
-                        text:
-                            'and may lead to permanent suspension of the user account and some may even attract legal action:\n\n• Spamming or entering irrelevent information.\n\n• Posting False or Fake Deals.\n\n• Posting graphic or inappropriate content.\n\n• Conducting scams or any other illegal activity.\n( Your IP : ',
-                      ),
-                      TextSpan(
-                        text: _ipv4,
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      TextSpan(
-                        text: ' )',
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              actions: [
-                TextButton(
-                    onPressed: Navigator.of(context).pop, child: Text('Close'))
-              ],
-            ));
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -182,7 +128,7 @@ class AddItemWelcome extends StatelessWidget {
                         height: 6,
                       ),
                       Text(
-                        'Sell or Exchange with ExEngg and find amazing deals superfast',
+                        'Sell or Exchange with ExEngg and find amazing deals superfast.',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 18,
@@ -252,7 +198,7 @@ class AddItemWelcome extends StatelessWidget {
                                       text: 'Guidelines',
                                       recognizer: TapGestureRecognizer()
                                         ..onTap = () {
-                                          _showGuidelinesDialog(context);
+                                          showGuidelinesDialog(context);
                                         }),
                                   TextSpan(
                                     text: ' before proceeding further',

@@ -25,17 +25,18 @@ class ColorPickerDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      backgroundColor: Color(0xff1f1f1f),
       content: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            _listTileBuilder(context, 'Blue', Color(0XFF2196F3)),
-            _listTileBuilder(context, 'Purple', Color(0XFF6750A4)),
-            _listTileBuilder(context, 'Teal', Color(0XFF009688)),
-            _listTileBuilder(context, 'Green', Color(0XFF4CAF50)),
-            _listTileBuilder(context, 'Yellow', Color(0XFFFFEB3B)),
-            _listTileBuilder(context, 'Orange', Color(0XFFFF9800)),
-            _listTileBuilder(context, 'Pink', Color(0XFFE91E63)),
+            _listTileBuilder(context, 'Blue', Color(0xFF2196F3)),
+            _listTileBuilder(context, 'Purple', Color(0xFF6750A4)),
+            _listTileBuilder(context, 'Teal', Color(0xFF009688)),
+            _listTileBuilder(context, 'Green', Color(0xFF4CAF50)),
+            _listTileBuilder(context, 'Yellow', Color(0xFFFFEB3B)),
+            _listTileBuilder(context, 'Orange', Color(0xFFFF9800)),
+            _listTileBuilder(context, 'Pink', Color(0xFFE91E63)),
           ],
         ),
       ),

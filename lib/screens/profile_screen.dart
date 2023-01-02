@@ -1,4 +1,5 @@
 import 'package:exengg/screens/favourites_screen.dart';
+import 'package:exengg/screens/feedback_form.dart';
 import 'package:exengg/screens/my_products_screen.dart';
 import 'package:exengg/widgets/color_picker_dialog.dart';
 import 'package:flutter/material.dart';
@@ -8,16 +9,21 @@ import '../providers/auth.dart';
 import '../screens/auth_screen.dart';
 // import 'package:flutter_material_pickers/flutter_material_pickers.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   void Function() _themeChanger;
   void Function(Color) _changeBrandColor;
   ProfileScreen(this._themeChanger, this._changeBrandColor);
 
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
   void _showColorPicker(BuildContext context) {
     showDialog(
         context: context,
         builder: (context) {
-          return ColorPickerDialog(_changeBrandColor);
+          return ColorPickerDialog(widget._changeBrandColor);
         });
   }
 
@@ -177,18 +183,96 @@ class ProfileScreen extends StatelessWidget {
                                         1 /
                                         25,
                                   ),
-                                  CircleAvatar(
-                                      radius: 60,
-                                      // child: ClipRRect(
-                                      // borderRadius: BorderRadius.circular(60),
-                                      backgroundImage: auth.imageUrl == null
-                                          ? Image.asset(
-                                                  'assets/images/logo.jpg')
-                                              .image
-                                          : Image.network(
-                                              auth.imageUrl!,
-                                              fit: BoxFit.fill,
-                                            ).image),
+
+                                  Container(
+                                    width: 168,
+                                    height: 168,
+                                    child: ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(100),
+                                        child: auth.imageUrl == null
+                                            ? Image.asset(
+                                                'assets/images/logo.jpg')
+                                            : Image.network(
+                                                auth.imageUrl!,
+                                                fit: BoxFit.cover,
+                                              )),
+                                    decoration: BoxDecoration(
+                                      color: Color(0xff333333),
+                                      borderRadius: BorderRadius.circular(100),
+                                      gradient: LinearGradient(
+                                        begin: Alignment.topLeft,
+                                        end: Alignment.bottomRight,
+                                        colors: [
+                                          Color(0xff333333),
+                                          Color(0xff333333),
+                                        ],
+                                      ),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Color(0xff3f3f3f),
+                                          offset: Offset(-5.3, -5.3),
+                                          blurRadius: 20,
+                                          spreadRadius: 0.0,
+                                        ),
+                                        BoxShadow(
+                                          color: Color(0xff272727),
+                                          offset: Offset(5.3, 5.3),
+                                          blurRadius: 20,
+                                          spreadRadius: 0.0,
+                                        ),
+                                      ],
+                                    ),
+
+                                    // decoration: BoxDecoration(
+                                    //   color: Color(0xff333333),
+                                    //   borderRadius: BorderRadius.circular(100),
+                                    //   gradient: LinearGradient(
+                                    //     begin: Alignment.topLeft,
+                                    //     end: Alignment.bottomRight,
+                                    //     colors: [
+                                    //       Color(0xff222222),
+                                    //       Theme.of(context)
+                                    //           .colorScheme
+                                    //           .surfaceVariant,
+                                    //     ],
+                                    //   ),
+                                    //   boxShadow: [
+                                    //     // BoxShadow(
+                                    //     //   color: Theme.of(context)
+                                    //     //       .colorScheme
+                                    //     //       .onBackground
+                                    //     //       .withOpacity(0.6),
+                                    //     //   offset: Offset(-10.1, -10.1),
+                                    //     //   blurRadius: 30,
+                                    //     //   spreadRadius: 0.0,
+                                    //     // ),
+                                    //     BoxShadow(
+                                    //       color: Color(0xff222222),
+                                    //       // color: Theme.of(context)
+                                    //       //     .colorScheme
+                                    //       //     .background,
+                                    //       // .withOpacity(0.6),
+                                    //       offset: Offset(10.1, 10.1),
+                                    //       blurRadius: 30,
+                                    //       spreadRadius: 0.0,
+                                    //     ),
+                                    //   ],
+                                    // ),
+                                  ),
+
+                                  // CircleAvatar(
+                                  //     radius: 60,
+                                  //     // child: ClipRRect(
+                                  //     // borderRadius: BorderRadius.circular(60),
+                                  //     backgroundImage: auth.imageUrl == null
+                                  //         ? Image.asset(
+                                  //                 'assets/images/logo.jpg')
+                                  //             .image
+                                  //         : Image.network(
+                                  //             auth.imageUrl!,
+                                  //             fit: BoxFit.fill,
+                                  //           ).image),
 
                                   // ),
                                   SizedBox(
@@ -328,8 +412,18 @@ class ProfileScreen extends StatelessWidget {
                                           _listItemBuilder(
                                               context,
                                               'Switch Theme',
-                                              Icon(Icons.dark_mode_outlined),
-                                              _themeChanger),
+                                              Theme.of(context)
+                                                          .colorScheme
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? Icon(Icons.light_mode)
+                                                  : Icon(
+                                                      Icons.dark_mode_outlined),
+                                              () {
+                                            setState(() {
+                                              widget._themeChanger();
+                                            });
+                                          }),
                                           Divider(
                                             indent: 8,
                                             endIndent: 8,
@@ -345,6 +439,19 @@ class ProfileScreen extends StatelessWidget {
                                               ), () {
                                             _showColorPicker(context);
                                           }),
+                                          Divider(
+                                            indent: 8,
+                                            endIndent: 8,
+                                          ),
+                                          _listItemBuilder(
+                                            context,
+                                            'Provide Feedback',
+                                            Icon(Icons.feedback_outlined),
+                                            () {
+                                              Navigator.of(context).pushNamed(
+                                                  FeedbackForm.routeName);
+                                            },
+                                          ),
                                           Divider(
                                             indent: 8,
                                             endIndent: 8,
