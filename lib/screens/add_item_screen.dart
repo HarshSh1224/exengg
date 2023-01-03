@@ -323,7 +323,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
         'creatorId': argumentsData['update'].creatorId,
         'creatorIP': argumentsData['update'].creatorIP,
       };
-      if (argumentsData['update'].price == -1 && _onlyOnce) {
+      if (argumentsData['update'].price < 0 && _onlyOnce) {
         checkboxValue = true;
         _onlyOnce = false;
       }

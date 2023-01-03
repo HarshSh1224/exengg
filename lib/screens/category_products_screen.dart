@@ -1,19 +1,28 @@
-import 'package:exengg/providers/auth.dart';
 import 'package:exengg/providers/products.dart';
 import 'package:flutter/material.dart';
 import '../widgets/product_item.dart';
 import '../widgets/side_drawer.dart';
 import 'package:provider/provider.dart';
 
-class CategoryProductsScreen extends StatelessWidget {
+class CategoryProductsScreen extends StatefulWidget {
+  static const routeName = '/category-products-screen';
+  final void Function() themeChanger;
+  CategoryProductsScreen(this.themeChanger);
+
+  @override
+  State<CategoryProductsScreen> createState() => _CategoryProductsScreenState();
+}
+
+enum Exchange { only, all }
+
+class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
   Future<void> _onRefresh(BuildContext context) {
     return Provider.of<Products>(context, listen: false).fetchAndSetData();
   }
 
-  static const routeName = '/category-products-screen';
-  void Function() themeChanger;
-  CategoryProductsScreen(this.themeChanger);
+  bool _showOnlyExchanges = false;
   final _scaffoldKey = new GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     final String categoryId =
@@ -35,13 +44,32 @@ class CategoryProductsScreen extends StatelessWidget {
         scrolledUnderElevation: 0,
         surfaceTintColor: Colors.transparent,
         actions: [
-          IconButton(
-            onPressed: themeChanger,
-            icon: Icon(
-              Icons.light_mode_outlined,
-              size: 25,
-            ),
-          ),
+          PopupMenuButton(onSelected: ((value) {
+            if (value == Exchange.only) {
+              setState(() {
+                _showOnlyExchanges = true;
+              });
+            } else {
+              setState(() {
+                _showOnlyExchanges = false;
+              });
+            }
+          }), itemBuilder: (_) {
+            return [
+              PopupMenuItem(
+                child: Text(
+                  'Show only Exchanges',
+                ),
+                value: Exchange.only,
+              ),
+              PopupMenuItem(
+                child: Text(
+                  'Show All',
+                ),
+                value: Exchange.all,
+              ),
+            ];
+          })
         ],
         title: const Text(
           '',
@@ -60,11 +88,19 @@ class CategoryProductsScreen extends StatelessWidget {
                   final productsData = products.items;
                   final categoryProducts = productsData.length == 0
                       ? []
-                      : productsData
-                          .where(
-                            (element) => element.categoryId == categoryId,
-                          )
-                          .toList();
+                      : (_showOnlyExchanges
+                          ? productsData
+                              .where(
+                                (element) =>
+                                    (element.categoryId == categoryId &&
+                                        element.price < 0),
+                              )
+                              .toList()
+                          : productsData
+                              .where(
+                                (element) => element.categoryId == categoryId,
+                              )
+                              .toList());
                   categoryProducts
                       .sort(((a, b) => b.createDate.compareTo(a.createDate)));
 
@@ -108,7 +144,7 @@ class CategoryProductsScreen extends StatelessWidget {
                                           horizontal: 12.0, vertical: 8),
                                       child: ProductItem(
                                           categoryProducts[index],
-                                          themeChanger),
+                                          widget.themeChanger),
                                     ),
                                   );
                                 },

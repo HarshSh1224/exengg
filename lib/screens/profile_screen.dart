@@ -46,6 +46,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
         });
   }
 
+  // bool _switchValue = false;
+
+  // @override
+  // void initState() {
+  //   _switchValue = Theme.of(context).colorScheme.brightness == Brightness.dark
+  //       ? true
+  //       : false;
+
+  //   super.initState();
+  // }
+
   Widget _listItemBuilder(
       BuildContext context, String title, Icon icon, Function() onTap) {
     return Material(
@@ -61,7 +72,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 fontSize: 14,
               ),
             ),
-            trailing: Icon(Icons.arrow_forward_ios_rounded),
+            trailing: title == 'Dark Theme'
+                ? Switch(
+                    activeColor: Theme.of(context).colorScheme.primary,
+                    value: Theme.of(context).colorScheme.brightness ==
+                            Brightness.dark
+                        ? true
+                        : false,
+                    onChanged: (value) {
+                      setState(() {
+                        widget._themeChanger();
+                      });
+                    })
+                : Icon(Icons.arrow_forward_ios_rounded),
           ),
           splashColor: Theme.of(context).colorScheme.background,
           borderRadius: BorderRadius.circular(0),
@@ -411,14 +434,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         children: [
                                           _listItemBuilder(
                                               context,
-                                              'Switch Theme',
-                                              Theme.of(context)
-                                                          .colorScheme
-                                                          .brightness ==
-                                                      Brightness.dark
-                                                  ? Icon(Icons.light_mode)
-                                                  : Icon(
-                                                      Icons.dark_mode_outlined),
+                                              'Dark Theme',
+                                              Icon(Icons.dark_mode_outlined),
                                               () {
                                             setState(() {
                                               widget._themeChanger();

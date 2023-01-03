@@ -80,7 +80,7 @@ class _SocialsState extends State<Socials> {
         ClipPath(
           clipper: CustomClipPath(),
           child: AnimatedContainer(
-            width: 70,
+            width: 200,
             duration: Duration(milliseconds: 200),
             padding: EdgeInsets.only(top: 25, left: 10, right: 10, bottom: 10),
             height: 65,
