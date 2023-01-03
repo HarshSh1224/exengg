@@ -29,9 +29,9 @@ List<Map> aboutInfo = [
   {
     'image': 'assets/images/about/raghu.jpg',
     'name': 'Harsh Raghuvanshi',
-    'linkedin': 'https://www.linkedin.com/in/harsh1224',
+    'linkedin': 'https://in.linkedin.com/in/harsh-raghuvanshi-a89bb8232',
     'designation': 'Web Developer',
-    'email': 'harshsharmadtu@gmail.com',
+    'email': 'harshrghvnsh@gmail.com',
     'description':
         'Developed and manages Web app of ExEngg that helps us reach almost any device.'
   },
