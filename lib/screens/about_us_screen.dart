@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:exengg/widgets/socials_about_us.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../providers/about_data.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -286,36 +287,97 @@ class _AboutUsContentState extends State<AboutUsContent> {
                 ]),
           ),
         ),
+        SizedBox(
+          height: 100,
+        ),
         Divider(
           endIndent: 40,
           indent: 40,
         ),
-        SizedBox(
-          height: 100,
-        ),
         Padding(
-          padding: const EdgeInsets.only(top: 20, left: 18, right: 18),
+          padding: const EdgeInsets.only(top: 10, left: 23, right: 23),
           child: Row(
+            // crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                'App Built on',
-                style: TextStyle(
-                    fontFamily: 'MoonBold',
-                    fontSize: 10,
-                    // letterSpacing: 2.0,
-                    color: Theme.of(context).colorScheme.outline),
+              Icon(
+                Icons.email_outlined,
+                color: Theme.of(context).colorScheme.outline,
+                size: 17,
               ),
               SizedBox(
-                width: 10,
+                width: 5,
               ),
-              Image.asset(
-                'assets/images/flutter.png',
-                height: 30,
+              FittedBox(
+                child: Text(
+                  'For Queries/Sugesstions Contact :',
+                  style: TextStyle(
+                      fontFamily: 'Roboto',
+                      fontSize: 12,
+                      // letterSpacing: 2.0,
+                      color: Theme.of(context).colorScheme.outline),
+                ),
               ),
             ],
           ),
         ),
+        Padding(
+          padding: const EdgeInsets.only(top: 5, left: 23, right: 23),
+          child: FittedBox(
+            child: GestureDetector(
+              onTap: () async {
+                await Clipboard.setData(
+                    ClipboardData(text: 'dtuexengg@gmail.com'));
+                ScaffoldMessenger.of(context).removeCurrentSnackBar();
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text('Email Copied!'),
+                )));
+              },
+              child: Text(
+                'dtuexengg@gmail.com',
+                style: TextStyle(
+                  fontFamily: 'Raleway',
+                  fontSize: 13,
+                  // letterSpacing: 2.0,
+                  fontWeight: FontWeight.w700,
+                  decoration: TextDecoration.underline,
+                  color: Colors.blue,
+                ),
+              ),
+            ),
+          ),
+        ),
+        // SizedBox(
+        //   height: 20,
+        // ),
+        // SizedBox(
+        //   height: 100,
+        // ),
+        // Padding(
+        //   padding: const EdgeInsets.only(top: 20, left: 18, right: 18),
+        //   child: Row(
+        //     mainAxisAlignment: MainAxisAlignment.center,
+        //     children: [
+        //       Text(
+        //         'App Built on',
+        //         style: TextStyle(
+        //             fontFamily: 'MoonBold',
+        //             fontSize: 10,
+        //             // letterSpacing: 2.0,
+        //             color: Theme.of(context).colorScheme.outline),
+        //       ),
+        //       SizedBox(
+        //         width: 10,
+        //       ),
+        //       Image.asset(
+        //         'assets/images/flutter.png',
+        //         height: 30,
+        //       ),
+        //     ],
+        //   ),
+        // ),
         SizedBox(
           height: 50,
         )

@@ -37,8 +37,8 @@ class _SocialsState extends State<Socials> {
           // height: 35,
           decoration: BoxDecoration(boxShadow: [
             BoxShadow(
-                spreadRadius: 1,
-                color: Color.fromARGB(255, 44, 44, 44).withOpacity(0.7),
+                spreadRadius: 0.5,
+                color: Color.fromARGB(255, 44, 44, 44).withOpacity(0.4),
                 offset: Offset(3, 0),
                 blurRadius: 24),
           ]),

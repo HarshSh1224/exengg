@@ -227,19 +227,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         begin: Alignment.topLeft,
                                         end: Alignment.bottomRight,
                                         colors: [
-                                          Color(0xff333333),
+                                          Color.fromARGB(255, 39, 39, 39),
                                           Color(0xff333333),
                                         ],
                                       ),
                                       boxShadow: [
                                         BoxShadow(
-                                          color: Color(0xff3f3f3f),
+                                          color: Color(0xff3f3f3f).withOpacity(
+                                              Theme.of(context)
+                                                          .colorScheme
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? 1
+                                                  : 0.3),
                                           offset: Offset(-5.3, -5.3),
                                           blurRadius: 20,
                                           spreadRadius: 0.0,
                                         ),
                                         BoxShadow(
-                                          color: Color(0xff272727),
+                                          color: Color(0xff272727).withOpacity(
+                                              Theme.of(context)
+                                                          .colorScheme
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? 1
+                                                  : 0.3),
                                           offset: Offset(5.3, 5.3),
                                           blurRadius: 20,
                                           spreadRadius: 0.0,

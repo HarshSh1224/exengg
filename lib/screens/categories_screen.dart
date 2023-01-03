@@ -37,10 +37,18 @@ class CategoriesScreen extends StatelessWidget {
                   gradient: LinearGradient(
                     begin: Alignment.bottomCenter,
                     end: Alignment.topCenter,
-                    colors: [
-                      Colors.black.withOpacity(0.9),
-                      Colors.black.withOpacity(0),
-                    ],
+                    colors:
+                        Theme.of(ctx).colorScheme.brightness == Brightness.light
+                            ? [
+                                // Color.fromARGB(255, 51, 139, 255).withOpacity(0.9),
+                                // Color.fromARGB(255, 51, 139, 255).withOpacity(0),
+                                Colors.black.withOpacity(0.4),
+                                Colors.black.withOpacity(0),
+                              ]
+                            : [
+                                Colors.black.withOpacity(0.7),
+                                Colors.black.withOpacity(0),
+                              ],
                   ),
                 ),
                 height: 200,
@@ -136,7 +144,7 @@ class CategoriesScreen extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-            _categoryItemBuilder(context, 'DRAFTER', 'Buy/Excchange',
+            _categoryItemBuilder(context, 'DRAFTER', 'Buy/Exchange',
                 'assets/images/drafter_bg.png'),
             _categoryItemBuilder(context, 'LABCOAT', 'Buy/Exchange',
                 'assets/images/labcoat_bg.jpg'),
