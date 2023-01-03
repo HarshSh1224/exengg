@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -186,12 +187,23 @@ class Products with ChangeNotifier {
   //   notifyListeners();
   // }
 
+  void deleteProductFromServerById(String id) async {
+    print('DELETING DIRTY PRODUCT $id');
+    await FirebaseFirestore.instance
+        .collection('/products/Mf68xktMsq1nObDvCb2F/products')
+        .doc(id)
+        .delete();
+    final ref =
+        await FirebaseStorage.instance.ref().child('productImages').child(id);
+    await ref.delete();
+  }
+
   Future<void> fetchAndSetData() async {
     final serverData = await FirebaseFirestore.instance
         .collection('/products/Mf68xktMsq1nObDvCb2F/products/')
         .get();
     // print(serverData.docs.length);
-    print(serverData.docs[0].id);
+    print('FETCHED DATA LENGTH = ' + serverData.docs.length.toString());
 
     // print(_items);
     Map<String, bool> existingFavData;
@@ -208,7 +220,13 @@ class Products with ChangeNotifier {
     }
 
     List<Product> loadedProduct = [];
-    serverData.docs.forEach((prod) {
+    for (final prod in serverData.docs) {
+      if (prod.data()['imageUrl'].isEmpty) {
+        deleteProductFromServerById(prod.id);
+        continue;
+      }
+
+      print('LOOPING THROUGH IDS : ' + prod.id);
       bool tempFavStatus = false;
       if (!existingFavData.isEmpty && existingFavData.containsKey(prod.id)) {
         tempFavStatus = existingFavData[prod.id]!;
@@ -223,12 +241,14 @@ class Products with ChangeNotifier {
           imageUrl: prod.data()['imageUrl'],
           phoneNumber: prod.data()['phone'],
           createDate: DateTime.parse(prod.data()['createDate']),
+          // createDate: DateTime.now(),
           creatorIP: prod.data()['creatorIP'],
           creatorId: prod.data()['creatorId'],
           isFavourite: tempFavStatus,
         ),
       );
-    });
+    }
+    ;
 
     print(loadedProduct);
 

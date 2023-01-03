@@ -140,11 +140,12 @@ class _AddItemScreenState extends State<AddItemScreen> {
   }
 
   Future<void> _addDataToServer() async {
+    var documentId = '';
     try {
       final authData = await FirebaseFirestore.instance
           .collection('/products/Mf68xktMsq1nObDvCb2F/products')
           .add(formData);
-      final documentId = authData.id;
+      documentId = authData.id;
 
       final ref = await FirebaseStorage.instance
           .ref()
@@ -165,6 +166,15 @@ class _AddItemScreenState extends State<AddItemScreen> {
           .doc(documentId)
           .set(formData);
     } catch (error) {
+      await FirebaseFirestore.instance
+          .collection('/products/Mf68xktMsq1nObDvCb2F/products')
+          .doc(documentId)
+          .delete();
+      final ref = await FirebaseStorage.instance
+          .ref()
+          .child('productImages')
+          .child(documentId);
+      await ref.delete();
       throw error;
     }
   }

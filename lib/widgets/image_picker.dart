@@ -121,20 +121,22 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
           if (_pickedImage != null && widget.borderRadius < 20)
             Positioned(
               child: CircleAvatar(
-                  backgroundColor: Colors.black.withOpacity(0.3),
-                  child: IconButton(
-                    icon: Icon(Icons.close),
-                    color: Colors.white,
-                    onPressed: () {
-                      setState(() {
-                        _pickedImage = null;
-                        _xPickedImage = null;
-                      });
-                    },
-                  )),
+                backgroundColor: Colors.black.withOpacity(0.3),
+                child: IconButton(
+                  icon: Icon(Icons.close),
+                  color: Colors.white,
+                  onPressed: () {
+                    setState(() {
+                      _pickedImage = null;
+                      _xPickedImage = null;
+                      widget.getProfilePic(null);
+                    });
+                  },
+                ),
+              ),
               top: 15,
               right: 15,
-            )
+            ),
         ],
       ),
       borderRadius: BorderRadius.circular(widget.borderRadius.toDouble()),
