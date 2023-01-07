@@ -4,6 +4,7 @@ import 'package:exengg/widgets/category_dropdown_button.dart';
 import 'package:exengg/widgets/image_picker.dart';
 import 'package:exengg/widgets/method_show_dialog.dart';
 import 'package:exengg/widgets/side_drawer.dart';
+import 'package:exengg/widgets/success_alert_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -56,45 +57,46 @@ class _AddItemScreenState extends State<AddItemScreen> {
   void _showTickDialog(BuildContext context) {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        backgroundColor: Colors.black,
-        title: Text('Success',
-            style: TextStyle(color: Color(0XFFffffff), fontSize: 20)),
-        actions: [
-          TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).pop();
-              },
-              child: Text(
-                'Okay',
-                style: TextStyle(color: Color(0XFFffffff)),
-              )),
-        ],
-        content: Container(
-          // height: 200,
-          constraints: BoxConstraints(maxHeight: 270),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Image.asset(
-                'assets/images/check.gif',
-                // height: 100,
-                fit: BoxFit.cover,
-              ),
-              Text(
-                _isUpdate
-                    ? 'Update Successful'
-                    : 'Your item has been successfully added! Now you can view it under the category you selected',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Color(0XFFffffff),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+      builder: (context) => SuccessDialog(),
+      // builder: (context) => AlertDialog(
+      //   backgroundColor: Colors.black,
+      //   title: Text('Success',
+      //       style: TextStyle(color: Color(0XFFffffff), fontSize: 20)),
+      //   actions: [
+      //     TextButton(
+      //         onPressed: () {
+      //           Navigator.of(context).pop();
+      //           Navigator.of(context).pop();
+      //         },
+      //         child: Text(
+      //           'Okay',
+      //           style: TextStyle(color: Color(0XFFffffff)),
+      //         )),
+      //   ],
+      //   content: Container(
+      //     // height: 200,
+      //     constraints: BoxConstraints(maxHeight: 270),
+      //     child: Column(
+      //       crossAxisAlignment: CrossAxisAlignment.center,
+      //       children: <Widget>[
+      //         Image.asset(
+      //           'assets/images/check.gif',
+      //           // height: 100,
+      //           fit: BoxFit.cover,
+      //         ),
+      //         Text(
+      //           _isUpdate
+      //               ? 'Update Successful'
+      //               : 'Your item has been successfully added! Now you can view it under the category you selected',
+      //           style: TextStyle(
+      //             fontSize: 14,
+      //             color: Color(0XFFffffff),
+      //           ),
+      //         ),
+      //       ],
+      //     ),
+      //   ),
+      // ),
     );
   }
 
@@ -348,6 +350,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
           if (!_shownAlert && snapshot.hasData) {
             _shownAlert = true;
             Future.delayed(Duration.zero, () => showGuidelinesDialog(context));
+            // Future.delayed(Duration.zero, () => _showTickDialog(context));
           }
           return !snapshot.hasData
               ? AuthScreen()

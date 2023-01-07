@@ -26,21 +26,25 @@ Future<void> main() async {
 var themeBrightness = Brightness.dark;
 Color brandColor = const Color(0XFF1F7DC6);
 
+Color get brand {
+  return brandColor;
+}
+
 Future<void> getThemeFromDevice() async {
   final getStorage = await GetStorage();
   getStorage.writeIfNull('brightness', 'dark');
 
   if (getStorage.read('brightness') == 'dark') {
-    print('READING INSTANCE DARK');
+    // print('READING INSTANCE DARK');
     themeBrightness = Brightness.dark;
   } else {
-    print('READING INSTANCE LIGHT');
+    // print('READING INSTANCE LIGHT');
     themeBrightness = Brightness.light;
   }
 
   getStorage.writeIfNull('brandColor', 'Color(0xFF1F7DC6)');
   String colorString = getStorage.read('brandColor');
-  print('READ COLOR = $colorString');
+  // print('READ COLOR = $colorString');
   String valueString = colorString.split('(0x')[1].split(')')[0];
   int color = int.parse(valueString, radix: 16);
   brandColor = Color(color);
@@ -63,7 +67,7 @@ class _MyAppState extends State<MyApp> {
     final getStorage = await GetStorage();
     getStorage.write(
         'brightness', themeBrightness == Brightness.dark ? 'dark' : 'light');
-    print('WRITING BRIGHTNESS INSTANCE');
+    // print('WRITING BRIGHTNESS INSTANCE');
   }
 
   void changeBrandColor(Color color) async {
@@ -73,7 +77,7 @@ class _MyAppState extends State<MyApp> {
     });
     final getStorage = await GetStorage();
     getStorage.write('brandColor', color.toString());
-    print('WRITING BRANDCOLOR INSTANCE');
+    // print('WRITING BRANDCOLOR INSTANCE');
   }
 
   @override
@@ -104,14 +108,14 @@ class _MyAppState extends State<MyApp> {
                       brightness: themeBrightness,
                     ),
                   ),
-                  home: TabsScreen(toggleTheme, changeBrandColor),
+                  home: TabsScreen(toggleTheme, changeBrandColor, brand),
                   routes: {
                     CategoryProductsScreen.routeName: (context) =>
                         CategoryProductsScreen(toggleTheme),
                     AuthScreen.routeName: (context) => AuthScreen(),
                     AddItemScreen.routeName: (context) => AddItemScreen(),
                     TabsScreen.routeName: (context) =>
-                        TabsScreen(toggleTheme, changeBrandColor),
+                        TabsScreen(toggleTheme, changeBrandColor, brand),
                     MyProductsScreen.routeName: (context) =>
                         MyProductsScreen(toggleTheme),
                     FavouritesScreen.routeName: (context) =>

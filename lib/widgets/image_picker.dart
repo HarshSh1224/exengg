@@ -81,6 +81,7 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                         widget.borderRadius < 50 ? 'Add an Image' : 'Add image',
                         style: TextStyle(
                             fontSize: 9,
+                            fontFamily: 'Raleway',
                             color: Theme.of(context)
                                 .colorScheme
                                 .onPrimaryContainer),
@@ -90,10 +91,12 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                         Text(
                           'Leave this empty if you dont want\nto update your existing image',
                           style: TextStyle(
-                              fontSize: 9,
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .onPrimaryContainer),
+                            // fontf
+                            fontSize: 9,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onPrimaryContainer,
+                          ),
                           textAlign: TextAlign.center,
                         ),
                     ],

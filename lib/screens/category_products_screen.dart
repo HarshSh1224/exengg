@@ -122,7 +122,7 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
                               categoryId == 'd1'
                                   ? 'DRAFTERS'
                                   : (categoryId == 'd2'
-                                      ? 'LAB COATS'
+                                      ? 'LAB COATS/Aprons'
                                       : 'MISCELLANEOUS'),
                               style: TextStyle(
                                   fontFamily: 'BebasNeue',

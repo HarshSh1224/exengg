@@ -12,7 +12,8 @@ import '../screens/auth_screen.dart';
 class ProfileScreen extends StatefulWidget {
   void Function() _themeChanger;
   void Function(Color) _changeBrandColor;
-  ProfileScreen(this._themeChanger, this._changeBrandColor);
+  final brand;
+  ProfileScreen(this._themeChanger, this._changeBrandColor, this.brand);
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -23,7 +24,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     showDialog(
         context: context,
         builder: (context) {
-          return ColorPickerDialog(widget._changeBrandColor);
+          return ColorPickerDialog(widget._changeBrandColor, widget.brand);
         });
   }
 
@@ -32,9 +33,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
         context: context,
         builder: (context) {
           return AlertDialog(
+            backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
             content: Padding(
               padding: const EdgeInsets.only(top: 18.0),
-              child: Text('This feature will be added soon...'),
+              child: Text(
+                'This feature will be added soon. Please keep checking for updates.',
+                style: TextStyle(
+                    color: Theme.of(context).colorScheme.onPrimaryContainer),
+              ),
             ),
             actions: [
               TextButton(
@@ -150,10 +156,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 context: context,
                                                 builder: (_) {
                                                   return AlertDialog(
+                                                    backgroundColor:
+                                                        Theme.of(context)
+                                                            .colorScheme
+                                                            .surfaceVariant,
                                                     title:
                                                         Text('Are you sure?'),
                                                     content: Text(
                                                       'Do you want to sign out of your account?',
+                                                      style: TextStyle(
+                                                          color: Theme.of(
+                                                                  context)
+                                                              .colorScheme
+                                                              .onPrimaryContainer),
                                                     ),
                                                     actions: [
                                                       TextButton(
@@ -506,9 +521,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           context: context,
                                           builder: (_) {
                                             return AlertDialog(
+                                              backgroundColor: Theme.of(context)
+                                                  .colorScheme
+                                                  .surfaceVariant,
                                               title: Text('Are you sure?'),
                                               content: Text(
                                                 'Do you want to sign out of your account?',
+                                                style: TextStyle(
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .onPrimaryContainer),
                                               ),
                                               actions: [
                                                 TextButton(

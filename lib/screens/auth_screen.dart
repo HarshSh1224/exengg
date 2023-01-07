@@ -113,7 +113,46 @@ class _AuthScreenState extends State<AuthScreen> {
         SizedBox(
           height: 100,
         ),
-        if (!_isLogin) ImagePickerWidget(getProfilePic),
+        // AnimatedOpacity(
+        //   duration: Duration(seconds: 2),
+        //   opacity: _isLogin ? 0 : 1,
+        //   child: _isLogin
+        //       ? null
+        //       : Text(
+        //           'Welcome to',
+        //           style: TextStyle(
+        //             fontSize: 20,
+        //             fontFamily: 'Raleway',
+        //             // fontWeight: FontWeight.w800,
+        //           ),
+        //         ),
+        // ),
+
+        // AnimatedContainer(
+        //   duration: Duration(milliseconds: 2000),
+        //   curve: Curves.easeOutCirc,
+        //   height: _isLogin ? 0 : 50,
+        //   child: AnimatedOpacity(
+        //     duration: Duration(seconds: 2),
+        //     opacity: _isLogin ? 0 : 1,
+        //     child: Text(
+        //       'ExEngg',
+        //       style: TextStyle(
+        //         fontSize: 30,
+        //         fontFamily: 'Raleway',
+        //         fontWeight: FontWeight.w700,
+        //       ),
+        //     ),
+        //   ),
+        // ),
+        // SizedBox(
+        //   height: 30,
+        // ),
+        AnimatedOpacity(
+          duration: Duration(seconds: 2),
+          opacity: _isLogin ? 0 : 1,
+          child: _isLogin ? null : ImagePickerWidget(getProfilePic),
+        ),
         if (_isLogin)
           CircleAvatar(
             child: ClipRRect(
@@ -137,11 +176,18 @@ class _AuthScreenState extends State<AuthScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(_isLogin ? 'Login to continue' : 'Create a new account'),
+                Text(
+                  _isLogin ? 'Login to continue' : 'Create a new account',
+                  style: TextStyle(
+                    fontFamily: 'MoonBold',
+                    // fontWeight: FontWeight.bold,
+                  ),
+                ),
                 SizedBox(
                   height: 25,
                 ),
-                if (!_isLogin) NameTextFormField(),
+                // if (!_isLogin)
+                NameTextFormField(_isLogin),
                 SizedBox(
                   height: _isLogin ? 0 : 10,
                 ),
@@ -153,8 +199,8 @@ class _AuthScreenState extends State<AuthScreen> {
                 SizedBox(
                   height: _isLogin ? 50 : 10,
                 ),
-                if (!_isLogin)
-                  ConfirmPasswordTextFormField(_passwordController),
+                // if (!_isLogin)
+                ConfirmPasswordTextFormField(_passwordController, _isLogin),
                 SizedBox(
                   height: _isLogin ? 0 : 50,
                 ),
@@ -176,7 +222,8 @@ class _AuthScreenState extends State<AuthScreen> {
                         : Text(
                             _isLogin ? 'LOGIN' : 'SIGN UP',
                             textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 18),
+                            style:
+                                TextStyle(fontSize: 18, fontFamily: 'MoonBold'),
                           ),
                   ),
                 ),
@@ -188,20 +235,26 @@ class _AuthScreenState extends State<AuthScreen> {
                   width: double.infinity,
                   // color: Colors.red,
                   alignment: Alignment.center,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        _isLogin
-                            ? 'Dont have an account?'
-                            : 'Already Have an account?',
-                        textAlign: TextAlign.center,
-                      ),
-                      TextButton(
-                          onPressed: _toggleLogin,
-                          child: Text(_isLogin ? 'Sign Up' : 'Login'))
-                    ],
+                  child: FittedBox(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          _isLogin
+                              ? 'Dont have an account?'
+                              : 'Already Have an account?',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontFamily: 'MoonBold'),
+                        ),
+                        TextButton(
+                            onPressed: _toggleLogin,
+                            child: Text(
+                              _isLogin ? 'Sign Up' : 'Login',
+                              style: TextStyle(fontFamily: 'MoonBold'),
+                            ))
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -264,10 +317,13 @@ class EmailTextFormField extends StatelessWidget {
           ),
           Expanded(
               child: TextFormField(
+            style:
+                TextStyle(fontFamily: 'Raleway', fontWeight: FontWeight.w700),
             keyboardType: TextInputType.emailAddress,
             // maxLength: 20,
             decoration: InputDecoration(
               labelText: 'Email',
+              labelStyle: TextStyle(fontFamily: 'Raleway'),
               // border: OutlineInputBorder(),
               // contentPadding: EdgeInsets.symmetric(vertical: ),
             ),
@@ -289,75 +345,85 @@ class EmailTextFormField extends StatelessWidget {
 }
 
 class NameTextFormField extends StatelessWidget {
-  const NameTextFormField({
+  final isLogin;
+  const NameTextFormField(
+    this.isLogin, {
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return AnimatedContainer(
       // color: Colors.red,
-      // height: 47,
+      duration: Duration(milliseconds: 300),
+      height: isLogin ? 0 : 70,
       constraints: BoxConstraints(
-        minHeight: 47,
-      ),
+          // minHeight: 47,
+          ),
       width: double.infinity,
       // padding: EdgeInsets.all(7),
       // color: Colors.black,
-      child: Row(
-        // mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Card(
-            margin: EdgeInsets.all(0),
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-            elevation: 4,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                // Text('ab'),
-                Card(
-                  color: Theme.of(context).colorScheme.onPrimaryContainer,
-                  child: Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: Icon(
-                      Icons.person,
-                      size: 35,
-                      color: Theme.of(context).colorScheme.onSecondary,
+      child: AnimatedOpacity(
+        duration: Duration(milliseconds: 500),
+        opacity: isLogin ? 0 : 1,
+        child: Row(
+          // mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Card(
+              margin: EdgeInsets.all(0),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5)),
+              elevation: 4,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // Text('ab'),
+                  Card(
+                    color: Theme.of(context).colorScheme.onPrimaryContainer,
+                    child: Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Icon(
+                        Icons.person,
+                        size: 35,
+                        color: Theme.of(context).colorScheme.onSecondary,
+                      ),
                     ),
+                    margin: EdgeInsets.all(0),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5)),
                   ),
-                  margin: EdgeInsets.all(0),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5)),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          SizedBox(
-            width: 7,
-          ),
-          Expanded(
-              child: TextFormField(
-            keyboardType: TextInputType.emailAddress,
-            // maxLength: 50,
-            decoration: InputDecoration(
-              labelText: 'Full Name',
-              // border: OutlineInputBorder(),
-              // contentPadding: EdgeInsets.symmetric(vertical: ),
+            SizedBox(
+              width: 7,
             ),
-            validator: (value) {
-              if (value!.isEmpty || value.length < 3) {
-                return 'Name should be min 3 character long';
-              }
-              return null;
-            },
-            onSaved: (value) {
-              formData['name'] = value!;
-            },
-            // style: TextStyle(fontSize: 10),
-          )),
-        ],
+            Expanded(
+                child: TextFormField(
+              style:
+                  TextStyle(fontFamily: 'Raleway', fontWeight: FontWeight.w700),
+              keyboardType: TextInputType.emailAddress,
+              // maxLength: 50,
+              decoration: InputDecoration(
+                labelText: 'Full Name',
+                labelStyle: TextStyle(fontFamily: 'Raleway'),
+                // border: OutlineInputBorder(),
+                // contentPadding: EdgeInsets.symmetric(vertical: ),
+              ),
+              validator: (value) {
+                if (!isLogin && value!.length < 3) {
+                  return 'Name should be min 3 character long';
+                }
+                return null;
+              },
+              onSaved: (value) {
+                formData['name'] = value!;
+              },
+              // style: TextStyle(fontSize: 10),
+            )),
+          ],
+        ),
       ),
     );
   }
@@ -416,11 +482,14 @@ class PasswordTextFormField extends StatelessWidget {
             ),
             Expanded(
                 child: TextFormField(
+              style:
+                  TextStyle(fontFamily: 'Raleway', fontWeight: FontWeight.w700),
               keyboardType: TextInputType.visiblePassword,
               obscureText: true,
               // maxLength: 100,
               decoration: InputDecoration(
                 labelText: 'Password',
+                labelStyle: TextStyle(fontFamily: 'Raleway'),
                 // border: OutlineInputBorder(),
                 // contentPadding: EdgeInsets.symmetric(vertical: ),
               ),
@@ -442,75 +511,84 @@ class PasswordTextFormField extends StatelessWidget {
 }
 
 class ConfirmPasswordTextFormField extends StatelessWidget {
-  final _passwordController;
+  final _passwordController, isLogin;
   ConfirmPasswordTextFormField(
-    this._passwordController, {
+    this._passwordController,
+    this.isLogin, {
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return AnimatedContainer(
         // color: Colors.red,
-        // height: 47,
+        duration: Duration(milliseconds: 300),
+        height: isLogin ? 0 : 75,
         constraints: BoxConstraints(
-          minHeight: 47,
-        ),
+            // minHeight: 47,
+            ),
         width: double.infinity,
-        // padding: EdgeInsets.all(7),
+        // padding: EdgeInsets.only(bottom: 7),
         // color: Colors.black,
-        child: Row(
-          // mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Card(
-              margin: EdgeInsets.all(0),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5)),
-              elevation: 4,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  // Text('ab'),
-                  Card(
-                    color: Theme.of(context).colorScheme.onPrimaryContainer,
-                    child: Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Icon(
-                        Icons.lock_outline_rounded,
-                        size: 35,
-                        color: Theme.of(context).colorScheme.onSecondary,
+        child: AnimatedOpacity(
+          duration: Duration(milliseconds: 500),
+          opacity: isLogin ? 0 : 1,
+          child: Row(
+            // mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Card(
+                margin: EdgeInsets.all(0),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5)),
+                elevation: 4,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    // Text('ab'),
+                    Card(
+                      color: Theme.of(context).colorScheme.onPrimaryContainer,
+                      child: Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Icon(
+                          Icons.lock_outline_rounded,
+                          size: 35,
+                          color: Theme.of(context).colorScheme.onSecondary,
+                        ),
                       ),
+                      margin: EdgeInsets.all(0),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5)),
                     ),
-                    margin: EdgeInsets.all(0),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5)),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            SizedBox(
-              width: 7,
-            ),
-            Expanded(
-                child: TextFormField(
-              keyboardType: TextInputType.visiblePassword,
-              obscureText: true,
-              decoration: InputDecoration(
-                labelText: 'Confirm Password',
-                // border: OutlineInputBorder(),
-                // contentPadding: EdgeInsets.symmetric(vertical: ),
+              SizedBox(
+                width: 7,
               ),
-              validator: (value) {
-                if (value != _passwordController.text) {
-                  return 'Passwords dont match!';
-                }
-                return null;
-              },
-              onSaved: (value) {},
-              // style: TextStyle(fontSize: 10),
-            )),
-          ],
+              Expanded(
+                  child: TextFormField(
+                style: TextStyle(
+                    fontFamily: 'Raleway', fontWeight: FontWeight.w700),
+                keyboardType: TextInputType.visiblePassword,
+                obscureText: true,
+                decoration: InputDecoration(
+                  labelText: 'Confirm Password',
+                  labelStyle: TextStyle(fontFamily: 'Raleway'),
+                  // border: OutlineInputBorder(),
+                  // contentPadding: EdgeInsets.symmetric(vertical: ),
+                ),
+                validator: (value) {
+                  if (!isLogin && value != _passwordController.text) {
+                    return 'Passwords dont match!';
+                  }
+                  return null;
+                },
+                onSaved: (value) {},
+                // style: TextStyle(fontSize: 10),
+              )),
+            ],
+          ),
         ));
   }
 }

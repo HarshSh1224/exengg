@@ -8,6 +8,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.11"
+  animated_check:
+    dependency: "direct main"
+    description:
+      name: animated_check
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.5"
   archive:
     dependency: transitive
     description:

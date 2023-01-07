@@ -42,7 +42,7 @@ class CategoriesScreen extends StatelessWidget {
                             ? [
                                 // Color.fromARGB(255, 51, 139, 255).withOpacity(0.9),
                                 // Color.fromARGB(255, 51, 139, 255).withOpacity(0),
-                                Colors.black.withOpacity(0.4),
+                                Colors.black.withOpacity(0.5),
                                 Colors.black.withOpacity(0),
                               ]
                             : [
@@ -61,6 +61,7 @@ class CategoriesScreen extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 30,
                         fontFamily: 'Roboto',
+                        // fontWeight: FontWeisght.bold,
                         color: Colors.white,
                       ),
                     ),
@@ -85,7 +86,7 @@ class CategoriesScreen extends StatelessWidget {
                         String id = 'd3';
                         if (title == 'DRAFTER') {
                           id = 'd1';
-                        } else if (title == 'LABCOAT') {
+                        } else if (title == 'LABCOAT/APRON') {
                           id = 'd2';
                         }
                         Navigator.of(ctx).pushNamed(
@@ -146,7 +147,7 @@ class CategoriesScreen extends StatelessWidget {
             ),
             _categoryItemBuilder(context, 'DRAFTER', 'Buy/Exchange',
                 'assets/images/drafter_bg.png'),
-            _categoryItemBuilder(context, 'LABCOAT', 'Buy/Exchange',
+            _categoryItemBuilder(context, 'LABCOAT/APRON', 'Buy/Exchange',
                 'assets/images/labcoat_bg.jpg'),
             _categoryItemBuilder(context, 'Miscellaneous', 'Buy/Exchange',
                 'assets/images/misc.png'),

@@ -53,7 +53,8 @@ class AddItemWelcome extends StatelessWidget {
             height: double.infinity,
             width: double.infinity,
             constraints: BoxConstraints(
-              maxHeight: mediaQuery.height - 120,
+              maxHeight: 620,
+              // maxHeight: mediaQuery.height - 120,
             ),
             child: Stack(
               fit: StackFit.expand,
@@ -165,11 +166,12 @@ class AddItemWelcome extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        height: 25,
+                        height: 18,
                       ),
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: 50),
+                        padding: EdgeInsets.symmetric(horizontal: 20),
                         child: Row(
+                          // mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(
                               Icons.info_outline,

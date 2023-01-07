@@ -12,13 +12,15 @@ void showGuidelinesDialog(BuildContext context) {
   showDialog(
       context: context,
       builder: (context) => AlertDialog(
+            backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(15.0))),
             title: Text(
               'Guidelines',
               style: TextStyle(
                   fontSize: 20,
-                  color: Theme.of(context).colorScheme.onBackground),
+                  // color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  fontFamily: 'Roboto'),
             ),
             content: Container(
               width: double.infinity,
@@ -26,7 +28,7 @@ void showGuidelinesDialog(BuildContext context) {
                 text: TextSpan(
                   style: TextStyle(
                       fontSize: 17,
-                      color: Theme.of(context).colorScheme.onBackground),
+                      color: Theme.of(context).colorScheme.onPrimaryContainer),
                   children: [
                     TextSpan(
                       text: 'The following actions are ',
@@ -39,7 +41,7 @@ void showGuidelinesDialog(BuildContext context) {
                           'and may lead to permanent suspension of the user account and some may even attract legal action:\n\n• Spamming or entering irrelevent information.\n\n• Posting False or Fake Deals.\n\n• Posting graphic or inappropriate content.\n\n• Conducting scams or any other illegal activity.\n( Your IP : ',
                     ),
                     TextSpan(
-                      text: _ipv4,
+                      text: _ipv4 == null ? 'connecting...' : _ipv4,
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     TextSpan(
@@ -51,7 +53,11 @@ void showGuidelinesDialog(BuildContext context) {
             ),
             actions: [
               TextButton(
-                  onPressed: Navigator.of(context).pop, child: Text('Close'))
+                  onPressed: Navigator.of(context).pop,
+                  child: Text(
+                    'Close',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ))
             ],
           ));
 }

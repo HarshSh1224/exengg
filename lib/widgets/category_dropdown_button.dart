@@ -60,7 +60,7 @@ class _CategoryDropdownButtonState extends State<CategoryDropdownButton> {
                 value: 'Drafter',
               ),
               DropdownMenuItem(
-                child: Text('Lab Coat',
+                child: Text('Lab Coat / Apron',
                     style: TextStyle(
                         color: Theme.of(context)
                             .colorScheme
