@@ -522,9 +522,29 @@ class _AddItemScreenState extends State<AddItemScreen> {
                                                         context: context,
                                                         builder: (_) {
                                                           return AlertDialog(
-                                                            title: Text('Info'),
+                                                            backgroundColor: Theme
+                                                                    .of(context)
+                                                                .colorScheme
+                                                                .surfaceVariant,
+                                                            title: Text(
+                                                              'Info',
+                                                              style: TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  color: Theme.of(
+                                                                          context)
+                                                                      .colorScheme
+                                                                      .onSecondaryContainer),
+                                                            ),
                                                             content: Text(
-                                                                'Checking this box will mark your listing type as \'Exchange\' which will show the Exchange mark when it is displayed in place of price.\nIMPORTANT : Please provide appropriate exchange deal description and include the items which are to be exchanged.'),
+                                                              'Checking this box will mark your listing type as \'Exchange\' which will show the Exchange mark when it is displayed in place of price.\nIMPORTANT : Please provide appropriate exchange deal description and include the items which are to be exchanged.',
+                                                              style: TextStyle(
+                                                                  color: Theme.of(
+                                                                          context)
+                                                                      .colorScheme
+                                                                      .onPrimaryContainer),
+                                                            ),
                                                             actions: [
                                                               TextButton(
                                                                   onPressed:

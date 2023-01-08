@@ -58,9 +58,12 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
       child: Stack(
         children: [
           Container(
-            height: widget.borderRadius != 10 ? 110 : 210,
-            width: widget.borderRadius != 10 ? 110 : double.infinity,
-            // color: Theme.of(context).colorScheme.onPrimaryContainer,
+            height: widget.borderRadius == 54
+                ? 90
+                : (widget.borderRadius != 10 ? 110 : 210),
+            width: widget.borderRadius == 54
+                ? 90
+                : (widget.borderRadius != 10 ? 110 : double.infinity),
             // child: Image.asset('assets/images/add_image.png'),
             child: _pickedImage != null
                 ? Image.file(
@@ -72,15 +75,19 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Icon(Icons.add_a_photo,
-                          size: 50,
+                          size: widget.borderRadius == 54 ? 35 : 50,
                           color:
                               Theme.of(context).colorScheme.onPrimaryContainer
                           // color: Theme.of(context).colorScheme.onSecondaryContainer,
                           ),
                       Text(
-                        widget.borderRadius < 50 ? 'Add an Image' : 'Add image',
+                        widget.borderRadius == 54
+                            ? 'Add new image'
+                            : (widget.borderRadius < 50
+                                ? 'Add an Image'
+                                : 'Add image'),
                         style: TextStyle(
-                            fontSize: 9,
+                            fontSize: widget.borderRadius == 54 ? 8 : 9,
                             fontFamily: 'Raleway',
                             color: Theme.of(context)
                                 .colorScheme
@@ -104,12 +111,16 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
             decoration: BoxDecoration(
               border: Border.all(
                 width: _pickedImage == null ? 1 : 0,
-                color: Theme.of(context).colorScheme.outline,
+                color: widget.borderRadius == 54
+                    ? Theme.of(context).colorScheme.onSurfaceVariant
+                    : Theme.of(context).colorScheme.outline,
                 // color: Colors.transparent
               ),
               borderRadius:
                   BorderRadius.circular(widget.borderRadius.toDouble()),
-              color: Theme.of(context).canvasColor,
+              color: widget.borderRadius == 54
+                  ? Theme.of(context).colorScheme.surfaceVariant
+                  : Theme.of(context).canvasColor,
             ),
           ),
           Positioned.fill(

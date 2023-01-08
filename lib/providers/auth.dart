@@ -94,7 +94,7 @@ class Auth with ChangeNotifier {
     // notifyListeners();
   }
 
-  void tryLogin() async {
+  Future<void> tryLogin() async {
     final currUser = FirebaseAuth.instance.currentUser;
     if (currUser != null) {
       final userData;

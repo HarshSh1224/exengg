@@ -169,7 +169,7 @@ class AddItemWelcome extends StatelessWidget {
                         height: 18,
                       ),
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        padding: EdgeInsets.symmetric(horizontal: 50),
                         child: Row(
                           // mainAxisAlignment: MainAxisAlignment.center,
                           children: [

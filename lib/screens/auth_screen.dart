@@ -1,8 +1,10 @@
 import 'dart:io';
 import 'package:exengg/providers/auth.dart';
 import 'package:exengg/widgets/image_picker.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AuthScreen extends StatefulWidget {
   static const routeName = '/auth-screen';
@@ -13,7 +15,7 @@ class AuthScreen extends StatefulWidget {
   State<AuthScreen> createState() => _AuthScreenState();
 }
 
-var formData = {
+var _formData = {
   'name': '',
   'email': '',
   'password': '',
@@ -29,7 +31,7 @@ class _AuthScreenState extends State<AuthScreen> {
     _profilePic = profilePic;
   }
 
-  bool _isLogin = true, _isLoading = false;
+  bool _isLogin = true, _isLoading = false, agree = false;
 
   @override
   void dispose() {
@@ -72,8 +74,11 @@ class _AuthScreenState extends State<AuthScreen> {
     FocusScope.of(context).unfocus();
 
     if (!_isLogin && _profilePic == null) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Please pick an image')));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        child: Text('Please pick an image'),
+      )));
       return;
     }
 
@@ -81,16 +86,16 @@ class _AuthScreenState extends State<AuthScreen> {
       return;
     }
     _formKey.currentState!.save();
-    // print(formData);
+    // print(_formData);
     setState(() {
       _isLoading = true;
     });
     try {
       await Provider.of<Auth>(context, listen: false).authenticate(
-          formData['email']!.trim(),
-          formData['password']!.trim(),
+          _formData['email']!.trim(),
+          _formData['password']!.trim(),
           _isLogin,
-          formData['name']!,
+          _formData['name']!,
           _profilePic);
       setState(() {
         _isLoading = false;
@@ -202,10 +207,11 @@ class _AuthScreenState extends State<AuthScreen> {
                 // if (!_isLogin)
                 ConfirmPasswordTextFormField(_passwordController, _isLogin),
                 SizedBox(
-                  height: _isLogin ? 0 : 50,
+                  height: _isLogin ? 0 : 30,
                 ),
+                if (!_isLogin) agreeToTerms(context),
                 ElevatedButton(
-                  onPressed: _submit,
+                  onPressed: !_isLogin && !agree ? null : _submit,
                   style: ElevatedButton.styleFrom(
                       backgroundColor:
                           Theme.of(context).colorScheme.onPrimaryContainer,
@@ -262,6 +268,59 @@ class _AuthScreenState extends State<AuthScreen> {
           ),
         )
       ]),
+    );
+  }
+
+  Row agreeToTerms(BuildContext context) {
+    return Row(
+      children: [
+        Transform.scale(
+          scale: 0.9,
+          child: Checkbox(
+            checkColor: Theme.of(context).colorScheme.background,
+            activeColor: Theme.of(context).colorScheme.onPrimaryContainer,
+            value: agree,
+            onChanged: (value) {
+              setState(() {
+                agree = value ?? false;
+              });
+            },
+          ),
+        ),
+        Transform.translate(
+          offset: Offset(-10, 0),
+          child: RichText(
+            text: TextSpan(
+              style: TextStyle(
+                fontFamily: 'Roboto',
+                // fontSize: 12,
+                color: Theme.of(context).colorScheme.onBackground,
+              ),
+              children: [
+                TextSpan(
+                  text: 'I agree to the ',
+                  // textAlign: TextAlign.center,
+                ),
+                TextSpan(
+                    style: TextStyle(
+                      color: Colors.blue,
+                    ),
+                    text: 'Privacy Policy',
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () async {
+                        print('TAP Policy');
+                        final Uri url = Uri.parse(
+                            'https://github.com/HarshSh1224/ExEngg-privacy/blob/main/privacy_policy.md');
+                        if (await canLaunchUrl(url)) {
+                          await launchUrl(url,
+                              mode: LaunchMode.externalApplication);
+                        }
+                      }),
+              ],
+            ),
+          ),
+        )
+      ],
     );
   }
 }
@@ -334,7 +393,7 @@ class EmailTextFormField extends StatelessWidget {
               return null;
             },
             onSaved: (value) {
-              formData['email'] = value!;
+              _formData['email'] = value!;
             },
             // style: TextStyle(fontSize: 10),
           )),
@@ -418,7 +477,7 @@ class NameTextFormField extends StatelessWidget {
                 return null;
               },
               onSaved: (value) {
-                formData['name'] = value!;
+                _formData['name'] = value!;
               },
               // style: TextStyle(fontSize: 10),
             )),
@@ -501,7 +560,7 @@ class PasswordTextFormField extends StatelessWidget {
                 return null;
               },
               onSaved: (value) {
-                formData['password'] = value!;
+                _formData['password'] = value!;
               },
               // style: TextStyle(fontSize: 10),
             )),

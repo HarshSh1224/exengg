@@ -19,8 +19,9 @@ void showGuidelinesDialog(BuildContext context) {
               'Guidelines',
               style: TextStyle(
                   fontSize: 20,
-                  // color: Theme.of(context).colorScheme.onSurfaceVariant,
-                  fontFamily: 'Roboto'),
+                  color: Theme.of(context).colorScheme.onSecondaryContainer,
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.bold),
             ),
             content: Container(
               width: double.infinity,
