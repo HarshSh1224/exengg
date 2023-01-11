@@ -61,11 +61,11 @@ flutter_icons:
   image_path: "assets/images/logo.png"
   min_sdk_android: 20
   adaptive_icon_background: "#000000"
-  adaptive_icon_foreground: "assets/images/logo_adaptive.png"
+  adaptive_icon_foreground: "assets/images/logo.png"
 
 flutter_native_splash:
   color: "#1f1f1f"
-  image: assets/images/logo_adaptive.png
+  image: assets/images/logo.png
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

@@ -56,8 +56,20 @@ class _AuthScreenState extends State<AuthScreen> {
         context: context,
         builder: (_) {
           return AlertDialog(
-            title: Text('An Error Occurred!'),
-            content: Text(croppedMessage),
+            backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
+            title: Text(
+              'An Error Occurred!',
+              style: TextStyle(
+                  fontSize: 20,
+                  color: Theme.of(context).colorScheme.onSecondaryContainer,
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.bold),
+            ),
+            content: Text(
+              croppedMessage,
+              style: TextStyle(
+                  color: Theme.of(context).colorScheme.onPrimaryContainer),
+            ),
             actions: [
               TextButton(
                 onPressed: () {

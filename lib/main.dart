@@ -23,8 +23,8 @@ Future<void> main() async {
   runApp(const MyApp());
 }
 
-var themeBrightness = Brightness.dark;
-Color brandColor = const Color(0XFF1F7DC6);
+var themeBrightness = Brightness.light;
+Color brandColor = const Color(0xFF6750A4);
 
 Color get brand {
   return brandColor;

@@ -61,7 +61,7 @@ class CategoriesScreen extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 30,
                         fontFamily: 'Roboto',
-                        // fontWeight: FontWeisght.bold,
+                        // fontWeight: FontWeight.bold,
                         color: Colors.white,
                       ),
                     ),
@@ -77,23 +77,25 @@ class CategoriesScreen extends StatelessWidget {
               ),
             ),
             Positioned.fill(
-                child: Material(
-                    color: Colors.transparent,
-                    child: InkWell(
-                      splashColor: Colors.white.withOpacity(0.4),
-                      borderRadius: BorderRadius.circular(15),
-                      onTap: () {
-                        String id = 'd3';
-                        if (title == 'DRAFTER') {
-                          id = 'd1';
-                        } else if (title == 'LABCOAT/APRON') {
-                          id = 'd2';
-                        }
-                        Navigator.of(ctx).pushNamed(
-                            CategoryProductsScreen.routeName,
-                            arguments: id);
-                      },
-                    ))),
+              child: Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  splashColor: Colors.white.withOpacity(0.4),
+                  borderRadius: BorderRadius.circular(15),
+                  onTap: () {
+                    String id = 'd3';
+                    if (title == 'DRAFTER') {
+                      id = 'd1';
+                    } else if (title == 'LABCOAT/APRON') {
+                      id = 'd2';
+                    }
+                    Navigator.of(ctx).pushNamed(
+                        CategoryProductsScreen.routeName,
+                        arguments: id);
+                  },
+                ),
+              ),
+            ),
           ],
         ),
       ),

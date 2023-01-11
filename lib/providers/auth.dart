@@ -46,7 +46,7 @@ class Auth with ChangeNotifier {
             email: email, password: password);
 
         var url =
-            'https://firebasestorage.googleapis.com/v0/b/exengg-e242e.appspot.com/o/profile_pics%2Fdefault.PNG?alt=media&token=b197fad6-bd0b-4ec8-804a-f01a3010099b';
+            'https://firebasestorage.googleapis.com/v0/b/exengg-e242e.appspot.com/o/profile_pics%2Fdefault.jpg?alt=media&token=31d7835e-7269-4587-8335-c6501d40491d';
         if (profilePic != null) {
           final ref = await FirebaseStorage.instance
               .ref()

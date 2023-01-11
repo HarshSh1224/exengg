@@ -287,7 +287,9 @@ class _EditBottomSheetState extends State<EditBottomSheet> {
                                 Theme.of(context).colorScheme.primaryContainer,
                             margin: EdgeInsets.zero,
                             // color: Color(0xffEEE8F4).withOpacity(1),
-                            elevation: 6,
+                            // elevation: 6,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(3)),
                             child: TextFormField(
                               initialValue: auth?.name,
                               // autofillHints: ['Found a bug', 'Improve the profile page'],

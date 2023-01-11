@@ -64,8 +64,8 @@ class _FeedbackFormState extends State<FeedbackForm> {
   String _whichImageToUse() {
     if (widget._brandColor == Color(0xFFE91E63))
       return 'assets/images/feedback/7.png';
-    if (widget._brandColor == Color(0xFF6750A4))
-      return 'assets/images/feedback/2.png';
+    if (widget._brandColor == Color(0xFF2196F3))
+      return 'assets/images/feedback/1.png';
     if (widget._brandColor == Color(0xFF009688))
       return 'assets/images/feedback/3.png';
     if (widget._brandColor == Color(0xFF4CAF50))
@@ -75,7 +75,7 @@ class _FeedbackFormState extends State<FeedbackForm> {
     if (widget._brandColor == Color(0xFFFF9800))
       return 'assets/images/feedback/6.png';
     else
-      return 'assets/images/feedback/1.png';
+      return 'assets/images/feedback/2.png';
   }
 
   @override

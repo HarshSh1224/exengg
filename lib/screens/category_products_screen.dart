@@ -68,6 +68,19 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
                 ),
                 value: Exchange.all,
               ),
+              // PopupMenuItem(
+              //   child: PopupMenuButton(
+              //     child: Padding(
+              //         padding: EdgeInsets.all(20), child: Text("Nested Items")),
+              //     itemBuilder: (_) {
+              //       return [
+              //         PopupMenuItem(child: Text("Item2")),
+              //         PopupMenuItem(child: Text("Item3"))
+              //       ];
+              //     },
+              //   ),
+              //   value: Exchange.all,
+              // ),
             ];
           })
         ],
