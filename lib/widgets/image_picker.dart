@@ -111,16 +111,12 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
             decoration: BoxDecoration(
               border: Border.all(
                 width: _pickedImage == null ? 1 : 0,
-                color: widget.borderRadius == 54
-                    ? Theme.of(context).colorScheme.onSurfaceVariant
-                    : Theme.of(context).colorScheme.outline,
+                color: Theme.of(context).colorScheme.outline,
                 // color: Colors.transparent
               ),
               borderRadius:
                   BorderRadius.circular(widget.borderRadius.toDouble()),
-              color: widget.borderRadius == 54
-                  ? Theme.of(context).colorScheme.surfaceVariant
-                  : Theme.of(context).canvasColor,
+              color: Theme.of(context).canvasColor,
             ),
           ),
           Positioned.fill(

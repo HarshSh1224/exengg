@@ -25,7 +25,7 @@ final GlobalKey<FormState> _formKey = GlobalKey();
 
 class _AuthScreenState extends State<AuthScreen> {
   final _passwordController = TextEditingController();
-  File? _profilePic;
+  File? _profilePic = null;
 
   void getProfilePic(File? profilePic) {
     _profilePic = profilePic;
@@ -73,14 +73,14 @@ class _AuthScreenState extends State<AuthScreen> {
   void _submit() async {
     FocusScope.of(context).unfocus();
 
-    if (!_isLogin && _profilePic == null) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0),
-        child: Text('Please pick an image'),
-      )));
-      return;
-    }
+    // if (!_isLogin && _profilePic == null) {
+    //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    //       content: Padding(
+    //     padding: const EdgeInsets.symmetric(vertical: 8.0),
+    //     child: Text('Please pick an image'),
+    //   )));
+    //   return;
+    // }
 
     if (!_formKey.currentState!.validate()) {
       return;
@@ -162,11 +162,14 @@ class _AuthScreenState extends State<AuthScreen> {
           CircleAvatar(
             child: ClipRRect(
               child: Image.asset(
-                'assets/images/logo.png',
+                Theme.of(context).colorScheme.brightness == Brightness.dark
+                    ? 'assets/images/logo.png'
+                    : 'assets/images/logo_light.png',
                 fit: BoxFit.fitWidth,
               ),
               borderRadius: BorderRadius.circular(50),
             ),
+            backgroundColor: Colors.transparent,
             radius: 50,
           ),
         // SizedBox(

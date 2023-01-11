@@ -141,15 +141,28 @@ class _ProductItemState extends State<ProductItem> {
                       ),
                 // subtitle: Text(),
               ),
-              Container(
-                width: double.infinity,
-                height: 200,
-                child: FadeInImage.assetNetwork(
-                  placeholder: 'assets/images/circular_progress.gif',
-                  image: widget.productItem.imageUrl,
-                  fit: BoxFit.cover,
+              GestureDetector(
+                onTap: () => showDialog(
+                    context: context,
+                    builder: (ctx) {
+                      return InteractiveViewer(
+                        child: Container(
+                          margin: EdgeInsets.symmetric(vertical: 200),
+                          width: double.infinity,
+                          child: Image.network(widget.productItem.imageUrl),
+                        ),
+                      );
+                    }),
+                child: Container(
+                  width: double.infinity,
+                  height: 200,
+                  child: FadeInImage.assetNetwork(
+                    placeholder: 'assets/images/circular_progress.gif',
+                    image: widget.productItem.imageUrl,
+                    fit: BoxFit.cover,
+                  ),
+                  // color: Colors.white,
                 ),
-                // color: Colors.white,
               ),
               Padding(
                 padding: const EdgeInsets.all(15.0),
@@ -266,18 +279,44 @@ class _ProductItemState extends State<ProductItem> {
                             builder: (_) {
                               return auth
                                   ? AlertDialog(
+                                      backgroundColor: Theme.of(context)
+                                          .colorScheme
+                                          .surfaceVariant,
                                       // insetPadding: EdgeInsets.all(10),
-                                      title: Text('Contact Number'),
+                                      title: Text(
+                                        'Contact Number',
+                                        style: TextStyle(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onSecondaryContainer,
+                                          fontFamily: 'Roboto',
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20,
+                                        ),
+                                      ),
                                       content: Container(
                                         width: 400,
                                         // color: Colors.red,
                                         child: ListTile(
-                                          leading: Icon(Icons.phone),
+                                          leading: Icon(
+                                            Icons.phone,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onPrimaryContainer,
+                                          ),
                                           title: FittedBox(
-                                              child: Text(widget
-                                                  .productItem.phoneNumber)),
+                                              child: Text(
+                                            widget.productItem.phoneNumber,
+                                            style: TextStyle(
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .onPrimaryContainer),
+                                          )),
                                           trailing: IconButton(
-                                            icon: Icon(Icons.copy),
+                                            icon: Icon(Icons.copy,
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .onPrimaryContainer),
                                             onPressed: () async {
                                               await Clipboard.setData(
                                                   ClipboardData(
@@ -306,9 +345,27 @@ class _ProductItemState extends State<ProductItem> {
                                       ],
                                     )
                                   : AlertDialog(
-                                      title: Text('Error'),
+                                      backgroundColor: Theme.of(context)
+                                          .colorScheme
+                                          .surfaceVariant,
+                                      title: Text(
+                                        'Error',
+                                        style: TextStyle(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onSecondaryContainer,
+                                          fontFamily: 'Roboto',
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20,
+                                        ),
+                                      ),
                                       content: Text(
-                                          'You must be logged in to view this information.'),
+                                        'You must be logged in to view this information.',
+                                        style: TextStyle(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onPrimaryContainer),
+                                      ),
                                       actions: [
                                         TextButton(
                                             onPressed: () =>

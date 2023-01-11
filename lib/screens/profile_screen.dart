@@ -168,8 +168,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                           Theme.of(context)
                                                               .colorScheme
                                                               .surfaceVariant,
-                                                      title:
-                                                          Text('Are you sure?'),
+                                                      title: Text(
+                                                        'Are you sure?',
+                                                        style: TextStyle(
+                                                          color: Theme.of(
+                                                                  context)
+                                                              .colorScheme
+                                                              .onSecondaryContainer,
+                                                          fontFamily: 'Roboto',
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 20,
+                                                        ),
+                                                      ),
                                                       content: Text(
                                                         'Do you want to sign out of your account?',
                                                         style: TextStyle(
@@ -570,7 +581,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     Theme.of(context)
                                                         .colorScheme
                                                         .surfaceVariant,
-                                                title: Text('Are you sure?'),
+                                                title: Text(
+                                                  'Are you sure?',
+                                                  style: TextStyle(
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .onSecondaryContainer,
+                                                    fontFamily: 'Roboto',
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20,
+                                                  ),
+                                                ),
                                                 content: Text(
                                                   'Do you want to sign out of your account?',
                                                   style: TextStyle(

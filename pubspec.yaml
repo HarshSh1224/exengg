@@ -91,6 +91,7 @@ flutter:
     - assets/images/labcoat_bg.jpg
     - assets/images/misc.png
     - assets/images/logo.png
+    - assets/images/logo_light.png
     - assets/images/circular_progress.gif
     - assets/images/moon_bg.jpeg
     - assets/images/check.gif
