@@ -26,10 +26,6 @@ Future<void> main() async {
 var themeBrightness = Brightness.light;
 Color brandColor = const Color(0xFF6750A4);
 
-Color get brand {
-  return brandColor;
-}
-
 Future<void> getThemeFromDevice() async {
   final getStorage = await GetStorage();
   getStorage.writeIfNull('brightness', 'dark');
@@ -42,7 +38,7 @@ Future<void> getThemeFromDevice() async {
     themeBrightness = Brightness.light;
   }
 
-  getStorage.writeIfNull('brandColor', 'Color(0xFF1F7DC6)');
+  getStorage.writeIfNull('brandColor', 'Color(0xFF6750A4)');
   String colorString = getStorage.read('brandColor');
   // print('READ COLOR = $colorString');
   String valueString = colorString.split('(0x')[1].split(')')[0];
@@ -109,14 +105,14 @@ class _MyAppState extends State<MyApp> {
                       brightness: themeBrightness,
                     ),
                   ),
-                  home: TabsScreen(toggleTheme, changeBrandColor, brand),
+                  home: TabsScreen(toggleTheme, changeBrandColor),
                   routes: {
                     CategoryProductsScreen.routeName: (context) =>
                         CategoryProductsScreen(toggleTheme),
                     AuthScreen.routeName: (context) => AuthScreen(),
                     AddItemScreen.routeName: (context) => AddItemScreen(),
                     TabsScreen.routeName: (context) =>
-                        TabsScreen(toggleTheme, changeBrandColor, brand),
+                        TabsScreen(toggleTheme, changeBrandColor),
                     MyProductsScreen.routeName: (context) =>
                         MyProductsScreen(toggleTheme),
                     FavouritesScreen.routeName: (context) =>

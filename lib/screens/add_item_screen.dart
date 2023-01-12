@@ -213,14 +213,14 @@ class _AddItemScreenState extends State<AddItemScreen> {
     }
   }
 
-  String _initialValueFromTitle(String title) {
+  String? _initialValueFromTitle(String title) {
     switch (title) {
       case 'Product Title':
         return formData['title'] as String;
       case 'Description':
         return formData['description'] as String;
       case 'Price':
-        return formData['price'].toString();
+        return null;
       case 'Phone Number':
         return formData['phone'] as String;
       default:
@@ -529,6 +529,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
                                                             title: Text(
                                                               'Info',
                                                               style: TextStyle(
+                                                                  fontSize: 20,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .bold,
@@ -538,7 +539,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
                                                                       .onSecondaryContainer),
                                                             ),
                                                             content: Text(
-                                                              'Checking this box will mark your listing type as \'Exchange\' which will show the Exchange mark when it is displayed in place of price.\nIMPORTANT : Please provide appropriate exchange deal description and include the items which are to be exchanged.',
+                                                              'Checking this box will mark your listing type as \'Exchange\' which will show the Exchange mark in place of price, when it is displayed.\nIMPORTANT : Please provide appropriate exchange deal description and include the items which are to be exchanged.',
                                                               style: TextStyle(
                                                                   color: Theme.of(
                                                                           context)

@@ -117,7 +117,7 @@ class AddItemWelcome extends StatelessWidget {
                         height: 20,
                       ),
                       Text(
-                        'Want to sell your goodies? It\'s quite difficult to find some real good deals right!',
+                        'Want to give away some stuff? It\'s quite difficult to find some real good deals right!',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 18,

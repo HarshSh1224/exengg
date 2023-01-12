@@ -58,14 +58,14 @@ dev_dependencies:
 
 flutter_icons:
   android: "launcher_icon"
-  image_path: "assets/images/logo.png"
+  image_path: "assets/images/icon.png"
   min_sdk_android: 20
   adaptive_icon_background: "#000000"
-  adaptive_icon_foreground: "assets/images/logo.png"
+  adaptive_icon_foreground: "assets/images/icon.png"
 
 flutter_native_splash:
   color: "#1f1f1f"
-  image: assets/images/logo.png
+  image: assets/images/splash.png
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

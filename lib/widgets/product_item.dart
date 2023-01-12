@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:exengg/screens/add_item_screen.dart';
 import 'package:exengg/screens/my_products_screen.dart';
@@ -145,21 +147,30 @@ class _ProductItemState extends State<ProductItem> {
                 onTap: () => showDialog(
                     context: context,
                     builder: (ctx) {
-                      return InteractiveViewer(
-                        child: Container(
-                          margin: EdgeInsets.symmetric(vertical: 200),
-                          width: double.infinity,
-                          child: Image.network(widget.productItem.imageUrl),
+                      return BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+                        child: InteractiveViewer(
+                          child: Container(
+                            margin: EdgeInsets.symmetric(vertical: 200),
+                            width: double.infinity,
+                            child: Hero(
+                                tag: 'productImageTag',
+                                child:
+                                    Image.network(widget.productItem.imageUrl)),
+                          ),
                         ),
                       );
                     }),
                 child: Container(
                   width: double.infinity,
                   height: 200,
-                  child: FadeInImage.assetNetwork(
-                    placeholder: 'assets/images/circular_progress.gif',
-                    image: widget.productItem.imageUrl,
-                    fit: BoxFit.cover,
+                  child: Hero(
+                    tag: 'productImageTag',
+                    child: FadeInImage.assetNetwork(
+                      placeholder: 'assets/images/circular_progress.gif',
+                      image: widget.productItem.imageUrl,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                   // color: Colors.white,
                 ),

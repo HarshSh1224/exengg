@@ -12,11 +12,9 @@ class TabsScreen extends StatefulWidget {
   static const routeName = '/tabs-screen';
   final Function() toggleTheme;
   final Function(Color) changeBrandColor;
-  final brand;
   TabsScreen(
     this.toggleTheme,
     this.changeBrandColor,
-    this.brand,
   );
 
   @override
@@ -45,8 +43,7 @@ class _TabsScreenState extends State<TabsScreen> {
         'title': ''
       },
       {
-        'screen': ProfileScreen(
-            widget.toggleTheme, widget.changeBrandColor, widget.brand),
+        'screen': ProfileScreen(widget.toggleTheme, widget.changeBrandColor),
         'title': ''
       },
     ];

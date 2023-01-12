@@ -231,13 +231,14 @@ class Products with ChangeNotifier {
       if (!existingFavData.isEmpty && existingFavData.containsKey(prod.id)) {
         tempFavStatus = existingFavData[prod.id]!;
       }
+      print(double.tryParse('a'));
       loadedProduct.add(
         Product(
           categoryId: prod.data()['categoryId'],
           id: prod.id,
           title: prod.data()['title'],
           description: prod.data()['description'],
-          price: prod.data()['price'],
+          price: double.tryParse(prod.data()['price'].toString()) ?? 0,
           imageUrl: prod.data()['imageUrl'],
           phoneNumber: prod.data()['phone'],
           createDate: DateTime.parse(prod.data()['createDate']),
@@ -247,6 +248,7 @@ class Products with ChangeNotifier {
           isFavourite: tempFavStatus,
         ),
       );
+      print(loadedProduct);
     }
     ;
 

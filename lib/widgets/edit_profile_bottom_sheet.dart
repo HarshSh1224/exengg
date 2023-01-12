@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:exengg/providers/auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -137,207 +138,213 @@ class _EditBottomSheetState extends State<EditBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: MediaQuery.of(context).viewInsets,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20), topRight: Radius.circular(20)),
-        color: Theme.of(context).colorScheme.surfaceVariant,
-      ),
-      // height: 220,
-      child: Padding(
-        padding: EdgeInsets.only(
-          left: 30.0,
-          right: 30.0,
-          bottom: 30,
+    return BackdropFilter(
+      filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+      child: Container(
+        padding: MediaQuery.of(context).viewInsets,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+          color: Theme.of(context).colorScheme.surfaceVariant,
+          // color: Colors.transparent,
         ),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 7,
-              ),
-              Align(
-                alignment: Alignment.center,
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                  ),
-                  width: 33,
-                  height: 4,
+        // height: 220,
+        child: Padding(
+          padding: EdgeInsets.only(
+            left: 30.0,
+            right: 30.0,
+            bottom: 30,
+          ),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 7,
                 ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Edit your profile',
-                    style: TextStyle(
-                      fontFamily: 'Raleway',
-                      fontWeight: FontWeight.w800,
-                      fontSize: 20,
+                Align(
+                  alignment: Alignment.center,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
                     ),
+                    width: 33,
+                    height: 4,
                   ),
-                  _isLoading == true
-                      ? Center(
-                          child: SizedBox(
-                            child: CircularProgressIndicator(),
-                            height: 25,
-                            width: 25,
-                          ),
-                        )
-                      : IconButton(
-                          onPressed: _submit,
-                          icon: Icon(
-                            Icons.done,
-                            size: 30,
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onPrimaryContainer,
-                          ),
-                          constraints: BoxConstraints(),
-                          padding: EdgeInsets.all(8),
-                        ),
-                ],
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Flexible(
-                    flex: 3,
-                    child: Material(
-                      color: Colors.transparent,
-                      child: InkWell(
-                        onTap: _pickkImage,
-                        child: Card(
-                            elevation: 6,
-                            color:
-                                Theme.of(context).colorScheme.primaryContainer,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20)),
-                            child: _pickedImage != null
-                                ? ClipRRect(
-                                    borderRadius: BorderRadius.circular(20),
-                                    child: Image.file(
-                                      _pickedImage!,
-                                      height: 90,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  )
-                                : Padding(
-                                    padding: const EdgeInsets.all(18.0),
-                                    child: Column(
-                                      children: [
-                                        Icon(
-                                          Icons.add_a_photo_rounded,
-                                          size: 35,
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .onPrimaryContainer,
-                                        ),
-                                        Text(
-                                          'New Image',
-                                          style: TextStyle(
-                                              fontSize: 8,
-                                              fontFamily: 'Raleway',
-                                              fontWeight: FontWeight.w700,
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .onPrimaryContainer),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      ],
-                                    ),
-                                  )),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Edit your profile',
+                      style: TextStyle(
+                        fontFamily: 'Raleway',
+                        fontWeight: FontWeight.w800,
+                        fontSize: 20,
                       ),
                     ),
-                  ),
-                  Flexible(
-                    flex: 5,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Change Display Name',
-                          style: TextStyle(
-                            fontFamily: 'Raleway',
-                            fontWeight: FontWeight.w700,
-                            fontSize: 15,
+                    _isLoading == true
+                        ? Center(
+                            child: SizedBox(
+                              child: CircularProgressIndicator(),
+                              height: 25,
+                              width: 25,
+                            ),
+                          )
+                        : IconButton(
+                            onPressed: _submit,
+                            icon: Icon(
+                              Icons.done,
+                              size: 30,
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onPrimaryContainer,
+                            ),
+                            constraints: BoxConstraints(),
+                            padding: EdgeInsets.all(8),
                           ),
-                        ),
-                        SizedBox(
-                          height: 8,
-                        ),
-                        Container(
-                          // width: double.infinity,
-                          // width: 200,
+                  ],
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Flexible(
+                      flex: 3,
+                      child: Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                          onTap: _pickkImage,
                           child: Card(
-                            color:
-                                Theme.of(context).colorScheme.primaryContainer,
-                            margin: EdgeInsets.zero,
-                            // color: Color(0xffEEE8F4).withOpacity(1),
-                            // elevation: 6,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(3)),
-                            child: TextFormField(
-                              initialValue: auth?.name,
-                              // autofillHints: ['Found a bug', 'Improve the profile page'],
-                              style: TextStyle(
-                                fontFamily: 'Raleway',
-                                fontWeight: FontWeight.w700,
-                              ),
-                              decoration: InputDecoration(
-                                label: Text(
-                                  '',
-                                  style: TextStyle(fontSize: 14),
-                                ),
-                                labelStyle: TextStyle(
-                                    fontFamily: 'MoonBold',
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onPrimaryContainer),
-                                contentPadding: EdgeInsets.only(left: 12),
-                                // floatingLabelStyle: const TextStyle(
-                                //     height: 4, color: Color.fromARGB(255, 160, 26, 179)),
-                                border: OutlineInputBorder(
-                                    borderSide: BorderSide.none,
-                                    borderRadius: BorderRadius.circular(10)),
-                                // prefixIcon: Icon(
-                                //   Icons.subject_rounded,
-                                //   // color: ,
-                                // ),
-                              ),
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Name can\'t be empty';
-                                } else if (value.length > 50) {
-                                  return 'Maximum 50 characters allowed';
-                                } else
-                                  return null;
-                              },
-                              onSaved: (value) {
-                                _formData['name'] = value!;
-                              },
+                              elevation: 6,
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .primaryContainer,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20)),
+                              child: _pickedImage != null
+                                  ? ClipRRect(
+                                      borderRadius: BorderRadius.circular(20),
+                                      child: Image.file(
+                                        _pickedImage!,
+                                        height: 90,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    )
+                                  : Padding(
+                                      padding: const EdgeInsets.all(18.0),
+                                      child: Column(
+                                        children: [
+                                          Icon(
+                                            Icons.add_a_photo_rounded,
+                                            size: 35,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onPrimaryContainer,
+                                          ),
+                                          Text(
+                                            'New Image',
+                                            style: TextStyle(
+                                                fontSize: 8,
+                                                fontFamily: 'Raleway',
+                                                fontWeight: FontWeight.w700,
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .onPrimaryContainer),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ],
+                                      ),
+                                    )),
+                        ),
+                      ),
+                    ),
+                    Flexible(
+                      flex: 5,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Change Display Name',
+                            style: TextStyle(
+                              fontFamily: 'Raleway',
+                              fontWeight: FontWeight.w700,
+                              fontSize: 15,
                             ),
                           ),
-                        )
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            ],
+                          SizedBox(
+                            height: 8,
+                          ),
+                          Container(
+                            // width: double.infinity,
+                            // width: 200,
+                            child: Card(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .primaryContainer,
+                              margin: EdgeInsets.zero,
+                              // color: Color(0xffEEE8F4).withOpacity(1),
+                              // elevation: 6,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(3)),
+                              child: TextFormField(
+                                initialValue: auth?.name,
+                                // autofillHints: ['Found a bug', 'Improve the profile page'],
+                                style: TextStyle(
+                                  fontFamily: 'Raleway',
+                                  fontWeight: FontWeight.w700,
+                                ),
+                                decoration: InputDecoration(
+                                  label: Text(
+                                    '',
+                                    style: TextStyle(fontSize: 14),
+                                  ),
+                                  labelStyle: TextStyle(
+                                      fontFamily: 'MoonBold',
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onPrimaryContainer),
+                                  contentPadding: EdgeInsets.only(left: 12),
+                                  // floatingLabelStyle: const TextStyle(
+                                  //     height: 4, color: Color.fromARGB(255, 160, 26, 179)),
+                                  border: OutlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  // prefixIcon: Icon(
+                                  //   Icons.subject_rounded,
+                                  //   // color: ,
+                                  // ),
+                                ),
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Name can\'t be empty';
+                                  } else if (value.length > 50) {
+                                    return 'Maximum 50 characters allowed';
+                                  } else
+                                    return null;
+                                },
+                                onSaved: (value) {
+                                  _formData['name'] = value!;
+                                },
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

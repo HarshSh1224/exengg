@@ -23,32 +23,35 @@ void showGuidelinesDialog(BuildContext context) {
                   fontFamily: 'Roboto',
                   fontWeight: FontWeight.bold),
             ),
-            content: Container(
-              width: double.infinity,
-              child: RichText(
-                text: TextSpan(
-                  style: TextStyle(
-                      fontSize: 17,
-                      color: Theme.of(context).colorScheme.onPrimaryContainer),
-                  children: [
-                    TextSpan(
-                      text: 'The following actions are ',
-                    ),
-                    TextSpan(
-                        text: 'PROHIBITED ',
-                        style: TextStyle(fontWeight: FontWeight.bold)),
-                    TextSpan(
-                      text:
-                          'and may lead to permanent suspension of the user account and some may even attract legal action:\n\n• Spamming or entering irrelevent information.\n\n• Posting False or Fake Deals.\n\n• Posting graphic or inappropriate content.\n\n• Conducting scams or any other illegal activity.\n( Your IP : ',
-                    ),
-                    TextSpan(
-                      text: _ipv4 == null ? 'connecting...' : _ipv4,
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    TextSpan(
-                      text: ' )',
-                    ),
-                  ],
+            content: SingleChildScrollView(
+              child: Container(
+                width: double.infinity,
+                child: RichText(
+                  text: TextSpan(
+                    style: TextStyle(
+                        fontSize: 17,
+                        color:
+                            Theme.of(context).colorScheme.onPrimaryContainer),
+                    children: [
+                      TextSpan(
+                        text: 'The following actions are ',
+                      ),
+                      TextSpan(
+                          text: 'PROHIBITED ',
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                      TextSpan(
+                        text:
+                            'and may lead to permanent suspension of the user account and some may even attract legal action:\n\n• Spamming or entering irrelevent information.\n\n• Posting False or Fake Deals.\n\n• Posting graphic or inappropriate content.\n\n• Conducting scams or any other illegal activity.\n( Your IP : ',
+                      ),
+                      TextSpan(
+                        text: _ipv4 == null ? 'connecting...' : _ipv4,
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      TextSpan(
+                        text: ' )',
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

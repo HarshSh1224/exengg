@@ -52,6 +52,9 @@ class _AuthScreenState extends State<AuthScreen> {
 
     print('CROPPED $croppedMessage');
 
+    if (croppedMessage.contains('Failed to connect'))
+      croppedMessage = 'Connection error. Please Retry.';
+
     showDialog(
         context: context,
         builder: (_) {

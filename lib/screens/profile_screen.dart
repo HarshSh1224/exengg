@@ -13,8 +13,10 @@ import '../screens/auth_screen.dart';
 class ProfileScreen extends StatefulWidget {
   void Function() _themeChanger;
   void Function(Color) _changeBrandColor;
-  final brand;
-  ProfileScreen(this._themeChanger, this._changeBrandColor, this.brand);
+  ProfileScreen(
+    this._themeChanger,
+    this._changeBrandColor,
+  );
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -25,7 +27,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     showDialog(
         context: context,
         builder: (context) {
-          return ColorPickerDialog(widget._changeBrandColor, widget.brand);
+          return ColorPickerDialog(widget._changeBrandColor);
         });
   }
 
@@ -225,6 +227,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         IconButton(
                                             onPressed: () {
                                               showModalBottomSheet(
+                                                  backgroundColor:
+                                                      Colors.transparent,
                                                   shape: RoundedRectangleBorder(
                                                     borderRadius:
                                                         BorderRadius.only(

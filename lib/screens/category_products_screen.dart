@@ -44,45 +44,56 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
         scrolledUnderElevation: 0,
         surfaceTintColor: Colors.transparent,
         actions: [
-          PopupMenuButton(onSelected: ((value) {
-            if (value == Exchange.only) {
-              setState(() {
-                _showOnlyExchanges = true;
-              });
-            } else {
-              setState(() {
-                _showOnlyExchanges = false;
-              });
-            }
-          }), itemBuilder: (_) {
-            return [
-              PopupMenuItem(
-                child: Text(
-                  'Show only Exchanges',
-                ),
-                value: Exchange.only,
-              ),
-              PopupMenuItem(
-                child: Text(
-                  'Show All',
-                ),
-                value: Exchange.all,
-              ),
-              // PopupMenuItem(
-              //   child: PopupMenuButton(
-              //     child: Padding(
-              //         padding: EdgeInsets.all(20), child: Text("Nested Items")),
-              //     itemBuilder: (_) {
-              //       return [
-              //         PopupMenuItem(child: Text("Item2")),
-              //         PopupMenuItem(child: Text("Item3"))
-              //       ];
-              //     },
-              //   ),
-              //   value: Exchange.all,
-              // ),
-            ];
-          })
+          PopupMenuButton(
+              color: Theme.of(context).colorScheme.surfaceVariant,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12)),
+              onSelected: ((value) {
+                if (value == Exchange.only) {
+                  setState(() {
+                    _showOnlyExchanges = true;
+                  });
+                } else {
+                  setState(() {
+                    _showOnlyExchanges = false;
+                  });
+                }
+              }),
+              itemBuilder: (_) {
+                return [
+                  PopupMenuItem(
+                    child: Text(
+                      'Show only Exchanges',
+                      style: TextStyle(
+                          color:
+                              Theme.of(context).colorScheme.onPrimaryContainer),
+                    ),
+                    value: Exchange.only,
+                  ),
+                  PopupMenuItem(
+                    child: Text(
+                      'Show All',
+                      style: TextStyle(
+                          color:
+                              Theme.of(context).colorScheme.onPrimaryContainer),
+                    ),
+                    value: Exchange.all,
+                  ),
+                  // PopupMenuItem(
+                  //   child: PopupMenuButton(
+                  //     child: Padding(
+                  //         padding: EdgeInsets.all(20), child: Text("Nested Items")),
+                  //     itemBuilder: (_) {
+                  //       return [
+                  //         PopupMenuItem(child: Text("Item2")),
+                  //         PopupMenuItem(child: Text("Item3"))
+                  //       ];
+                  //     },
+                  //   ),
+                  //   value: Exchange.all,
+                  // ),
+                ];
+              })
         ],
         title: const Text(
           '',
