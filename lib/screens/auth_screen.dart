@@ -54,6 +54,11 @@ class _AuthScreenState extends State<AuthScreen> {
 
     if (croppedMessage.contains('Failed to connect'))
       croppedMessage = 'Connection error. Please Retry.';
+    if (croppedMessage.contains('password is invalid'))
+      croppedMessage = 'The password is invalid!';
+    if (croppedMessage.contains('no user record'))
+      croppedMessage =
+          'There is no user corresponding to this email address. Try Signing Up if you are a new user.';
 
     showDialog(
         context: context,
