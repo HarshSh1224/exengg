@@ -1,3 +1,4 @@
+import 'package:exengg/screens/chats_screen.dart';
 import 'package:exengg/screens/favourites_screen.dart';
 import 'package:exengg/screens/feedback_form.dart';
 import 'package:exengg/screens/my_products_screen.dart';
@@ -446,6 +447,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         elevation: 7,
                                         child: Column(
                                           children: [
+                                            _listItemBuilder(context, 'Chats',
+                                                Icon(Icons.chat), () {
+                                              Navigator.of(context).pushNamed(
+                                                  ChatsScreen.routeName);
+                                            }),
+                                            Divider(
+                                              indent: 8,
+                                              endIndent: 8,
+                                            ),
                                             _listItemBuilder(
                                                 context,
                                                 'Favourites',
@@ -463,9 +473,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 context,
                                                 'Your Products',
                                                 Icon(Icons.propane_outlined),
-                                                () {
-                                              Navigator.of(context).pushNamed(
-                                                  MyProductsScreen.routeName);
+                                                () async {
+                                              var page =
+                                                  await Future.microtask(() {
+                                                return MyProductsScreen(
+                                                    widget._themeChanger);
+                                              });
+                                              var route = MaterialPageRoute(
+                                                  builder: (_) => page);
+                                              Navigator.push(context, route);
+                                              // Navigator.of(context).pushNamed(
+                                              //     MyProductsScreen.routeName);
                                             }),
                                           ],
                                         ),

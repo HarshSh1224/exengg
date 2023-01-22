@@ -83,6 +83,7 @@ class _EditBottomSheetState extends State<EditBottomSheet> {
 
       await _updateDataToServer();
       await auth!.tryLogin();
+      ScaffoldMessenger.of(context).removeCurrentSnackBar();
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Padding(
               padding: const EdgeInsets.all(10.0), child: Text('Success'))));

@@ -1,7 +1,7 @@
 import 'package:exengg/screens/about_us_screen.dart';
-import 'package:exengg/screens/about_us_screen.dart';
 import 'package:exengg/screens/add_item_screen.dart';
 import 'package:exengg/screens/auth_screen.dart';
+import 'package:exengg/screens/chats_screen.dart';
 import 'package:exengg/screens/favourites_screen.dart';
 import 'package:exengg/screens/feedback_form.dart';
 import 'package:exengg/screens/my_products_screen.dart';
@@ -120,6 +120,7 @@ class _MyAppState extends State<MyApp> {
                     About.routeName: (context) => About(),
                     FeedbackForm.routeName: (context) =>
                         FeedbackForm(brandColor),
+                    ChatsScreen.routeName: (context) => ChatsScreen(),
                   },
                 );
               },

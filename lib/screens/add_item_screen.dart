@@ -585,9 +585,29 @@ class _AddItemScreenState extends State<AddItemScreen> {
                                     ),
                                     _textFormFieldBuilder(
                                         context,
-                                        'Phone Number',
+                                        'Contact Number',
                                         Icons.phone,
                                         TextInputType.number),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Transform.translate(
+                                      offset: Offset(10, 0),
+                                      child: Row(
+                                        children: [
+                                          // Icon(Icons.info),
+                                          Text(
+                                            'Contact number is not shown publically',
+                                            // textAlign: TextAlign.start,
+                                            style: TextStyle(
+                                                fontSize: 10,
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .onSecondaryContainer),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
                                     SizedBox(
                                       height: 40,
                                     ),

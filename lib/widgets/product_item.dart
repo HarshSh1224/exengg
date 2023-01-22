@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:exengg/screens/add_item_screen.dart';
+import 'package:exengg/screens/messages_screen.dart';
 import 'package:exengg/screens/my_products_screen.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -25,9 +26,11 @@ class ProductItem extends StatefulWidget {
 
 class _ProductItemState extends State<ProductItem> {
   String? imageUrl = null, name = null;
+  int? daysBack;
 
   @override
   void initState() {
+    daysBack = DateTime.now().difference(widget.productItem.createDate).inDays;
     super.initState();
     _userProfileImageUrlGetter();
   }
@@ -90,8 +93,16 @@ class _ProductItemState extends State<ProductItem> {
                   foregroundColor: Theme.of(context).colorScheme.onPrimary,
                 ),
                 title: Text(name == null ? 'Loading' : name!),
-                subtitle: Text(DateFormat('dd MMM hh a')
-                    .format(widget.productItem.createDate)),
+                subtitle: daysBack! > 16
+                    ? Text(DateFormat('dd MMM')
+                        .format(widget.productItem.createDate))
+                    : Text(daysBack == 0
+                        ? 'Today'
+                        : daysBack == 1
+                            ? 'Yesterday'
+                            : '$daysBack Days ago'),
+                // subtitle: Text(DateFormat('dd MMM')
+                //     .format(widget.productItem.createDate)),
                 trailing: widget.comingFromMyProducts
                     ? IconButton(
                         onPressed: () {
@@ -151,26 +162,20 @@ class _ProductItemState extends State<ProductItem> {
                         filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
                         child: InteractiveViewer(
                           child: Container(
-                            margin: EdgeInsets.symmetric(vertical: 200),
-                            width: double.infinity,
-                            child: Hero(
-                                tag: 'productImageTag',
-                                child:
-                                    Image.network(widget.productItem.imageUrl)),
-                          ),
+                              margin: EdgeInsets.symmetric(vertical: 200),
+                              width: double.infinity,
+                              child:
+                                  Image.network(widget.productItem.imageUrl)),
                         ),
                       );
                     }),
                 child: Container(
                   width: double.infinity,
                   height: 200,
-                  child: Hero(
-                    tag: 'productImageTag',
-                    child: FadeInImage.assetNetwork(
-                      placeholder: 'assets/images/circular_progress.gif',
-                      image: widget.productItem.imageUrl,
-                      fit: BoxFit.cover,
-                    ),
+                  child: FadeInImage.assetNetwork(
+                    placeholder: 'assets/images/circular_progress.gif',
+                    image: widget.productItem.imageUrl,
+                    fit: BoxFit.cover,
                   ),
                   // color: Colors.white,
                 ),
@@ -279,114 +284,166 @@ class _ProductItemState extends State<ProductItem> {
                             Theme.of(context).colorScheme.onPrimary,
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.all(13.0),
-                        child: Text('Get Contact'),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 13.0, horizontal: 20),
+                        child: Text(
+                          'Chat',
+                          style: TextStyle(fontFamily: 'MoonBold'),
+                        ),
                       ),
-                      onPressed: () {
-                        final auth =
-                            Provider.of<Auth>(context, listen: false).isAuth;
-                        showDialog(
-                            context: context,
-                            builder: (_) {
-                              return auth
-                                  ? AlertDialog(
-                                      backgroundColor: Theme.of(context)
-                                          .colorScheme
-                                          .surfaceVariant,
-                                      // insetPadding: EdgeInsets.all(10),
-                                      title: Text(
-                                        'Contact Number',
-                                        style: TextStyle(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .onSecondaryContainer,
-                                          fontFamily: 'Roboto',
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20,
-                                        ),
-                                      ),
-                                      content: Container(
-                                        width: 400,
-                                        // color: Colors.red,
-                                        child: ListTile(
-                                          leading: Icon(
-                                            Icons.phone,
+                      onPressed: Provider.of<Auth>(context, listen: false)
+                              .isAuth
+                          ? widget.productItem.creatorId ==
+                                  Provider.of<Auth>(context, listen: false)
+                                      .getUserId
+                              ? null
+                              : () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (_) => MessagesScreen(
+                                          widget.productItem.creatorId,
+                                          Provider.of<Auth>(context,
+                                                  listen: false)
+                                              .getUserId)));
+                                }
+                          : () {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) => AlertDialog(
+                                        backgroundColor: Theme.of(context)
+                                            .colorScheme
+                                            .surfaceVariant,
+                                        title: Text(
+                                          'Error',
+                                          style: TextStyle(
                                             color: Theme.of(context)
                                                 .colorScheme
-                                                .onPrimaryContainer,
-                                          ),
-                                          title: FittedBox(
-                                              child: Text(
-                                            widget.productItem.phoneNumber,
-                                            style: TextStyle(
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .onPrimaryContainer),
-                                          )),
-                                          trailing: IconButton(
-                                            icon: Icon(Icons.copy,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .onPrimaryContainer),
-                                            onPressed: () async {
-                                              await Clipboard.setData(
-                                                  ClipboardData(
-                                                      text: widget.productItem
-                                                          .phoneNumber));
-                                              Navigator.of(context).pop();
-                                              ScaffoldMessenger.of(context)
-                                                  .removeCurrentSnackBar();
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(SnackBar(
-                                                      content: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Text('Copied!'),
-                                              )));
-                                              // copied successfully
-                                            },
+                                                .onSecondaryContainer,
+                                            fontFamily: 'Roboto',
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 20,
                                           ),
                                         ),
-                                      ),
-                                      actions: [
-                                        TextButton(
-                                            onPressed: () =>
-                                                Navigator.of(context).pop(),
-                                            child: Text('Okay'))
-                                      ],
-                                    )
-                                  : AlertDialog(
-                                      backgroundColor: Theme.of(context)
-                                          .colorScheme
-                                          .surfaceVariant,
-                                      title: Text(
-                                        'Error',
-                                        style: TextStyle(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .onSecondaryContainer,
-                                          fontFamily: 'Roboto',
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20,
+                                        content: Text(
+                                          'You must be logged in to continue to chat',
+                                          style: TextStyle(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .onPrimaryContainer),
                                         ),
-                                      ),
-                                      content: Text(
-                                        'You must be logged in to view this information.',
-                                        style: TextStyle(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .onPrimaryContainer),
-                                      ),
-                                      actions: [
-                                        TextButton(
-                                            onPressed: () =>
-                                                Navigator.of(context).pop(),
-                                            child: Text('Okay'))
-                                      ],
-                                    );
-                            });
-                      },
-                    ),
+                                        actions: [
+                                          TextButton(
+                                              onPressed: () =>
+                                                  Navigator.of(context).pop(),
+                                              child: Text('Okay'))
+                                        ],
+                                      ));
+                              return;
+                            }
+                      // onPressed: () {
+                      //   final auth =
+                      //       Provider.of<Auth>(context, listen: false).isAuth;
+                      //   showDialog(
+                      //       context: context,
+                      //       builder: (_) {
+                      //         return auth
+                      //             ? AlertDialog(
+                      //                 backgroundColor: Theme.of(context)
+                      //                     .colorScheme
+                      //                     .surfaceVariant,
+                      //                 // insetPadding: EdgeInsets.all(10),
+                      //                 title: Text(
+                      //                   'Contact Number',
+                      //                   style: TextStyle(
+                      //                     color: Theme.of(context)
+                      //                         .colorScheme
+                      //                         .onSecondaryContainer,
+                      //                     fontFamily: 'Roboto',
+                      //                     fontWeight: FontWeight.bold,
+                      //                     fontSize: 20,
+                      //                   ),
+                      //                 ),
+                      //                 content: Container(
+                      //                   width: 400,
+                      //                   // color: Colors.red,
+                      //                   child: ListTile(
+                      //                     leading: Icon(
+                      //                       Icons.phone,
+                      //                       color: Theme.of(context)
+                      //                           .colorScheme
+                      //                           .onPrimaryContainer,
+                      //                     ),
+                      //                     title: FittedBox(
+                      //                         child: Text(
+                      //                       widget.productItem.phoneNumber,
+                      //                       style: TextStyle(
+                      //                           color: Theme.of(context)
+                      //                               .colorScheme
+                      //                               .onPrimaryContainer),
+                      //                     )),
+                      //                     trailing: IconButton(
+                      //                       icon: Icon(Icons.copy,
+                      //                           color: Theme.of(context)
+                      //                               .colorScheme
+                      //                               .onPrimaryContainer),
+                      //                       onPressed: () async {
+                      //                         await Clipboard.setData(
+                      //                             ClipboardData(
+                      //                                 text: widget.productItem
+                      //                                     .phoneNumber));
+                      //                         Navigator.of(context).pop();
+                      //                         ScaffoldMessenger.of(context)
+                      //                             .removeCurrentSnackBar();
+                      //                         ScaffoldMessenger.of(context)
+                      //                             .showSnackBar(SnackBar(
+                      //                                 content: Padding(
+                      //                           padding:
+                      //                               const EdgeInsets.all(8.0),
+                      //                           child: Text('Copied!'),
+                      //                         )));
+                      //                         // copied successfully
+                      //                       },
+                      //                     ),
+                      //                   ),
+                      //                 ),
+                      //                 actions: [
+                      //                   TextButton(
+                      //                       onPressed: () =>
+                      //                           Navigator.of(context).pop(),
+                      //                       child: Text('Okay'))
+                      //                 ],
+                      //               )
+                      //             : AlertDialog(
+                      //                 backgroundColor: Theme.of(context)
+                      //                     .colorScheme
+                      //                     .surfaceVariant,
+                      //                 title: Text(
+                      //                   'Error',
+                      //                   style: TextStyle(
+                      //                     color: Theme.of(context)
+                      //                         .colorScheme
+                      //                         .onSecondaryContainer,
+                      //                     fontFamily: 'Roboto',
+                      //                     fontWeight: FontWeight.bold,
+                      //                     fontSize: 20,
+                      //                   ),
+                      //                 ),
+                      //                 content: Text(
+                      //                   'You must be logged in to view this information.',
+                      //                   style: TextStyle(
+                      //                       color: Theme.of(context)
+                      //                           .colorScheme
+                      //                           .onPrimaryContainer),
+                      //                 ),
+                      //                 actions: [
+                      //                   TextButton(
+                      //                       onPressed: () =>
+                      //                           Navigator.of(context).pop(),
+                      //                       child: Text('Okay'))
+                      //                 ],
+                      //               );
+                      //       });
+                      // },
+                      ),
               // child: ListTile(
               //   trailing: ElevatedButton(
               //     onPressed: () {},

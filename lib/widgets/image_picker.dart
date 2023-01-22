@@ -109,8 +109,12 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                   ),
             decoration: BoxDecoration(
               border: Border.all(
-                width: _pickedImage == null ? 1 : 0,
-                color: Theme.of(context).colorScheme.outline,
+                width: _pickedImage == null
+                    ? (widget.borderRadius < 15 ? 1 : 2)
+                    : 0,
+                color: widget.borderRadius < 15
+                    ? Theme.of(context).colorScheme.outline
+                    : Theme.of(context).colorScheme.onPrimaryContainer,
                 // color: Colors.transparent
               ),
               borderRadius:
@@ -196,14 +200,18 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                                         width: 20,
                                       ),
                                       Material(
-                                          color: Colors.transparent,
-                                          child: InkWell(
-                                              onTap: () {
-                                                sourceChoice = 1;
-                                                Navigator.of(context).pop();
-                                              },
-                                              child: imageSourceChoiceBuilder(
-                                                  context, 1)))
+                                        color: Colors.transparent,
+                                        child: InkWell(
+                                          onTap: () {
+                                            sourceChoice = 1;
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: imageSourceChoiceBuilder(
+                                            context,
+                                            1,
+                                          ),
+                                        ),
+                                      )
                                     ],
                                   )
                                 ],

@@ -113,8 +113,12 @@ class SideDrawer extends StatelessWidget {
                           Icons.info,
                           color: Colors.white,
                           size: 25,
-                        ), () {
-                      Navigator.of(context).pushNamed(About.routeName);
+                        ), () async {
+                      var page = await Future.microtask(() {
+                        return About();
+                      });
+                      var route = MaterialPageRoute(builder: (_) => page);
+                      Navigator.push(context, route);
                     }),
                     SizedBox(
                       height: 20,

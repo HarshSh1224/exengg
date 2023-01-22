@@ -511,13 +511,19 @@ class NameTextFormField extends StatelessWidget {
   }
 }
 
-class PasswordTextFormField extends StatelessWidget {
+class PasswordTextFormField extends StatefulWidget {
   final _passwordController;
   PasswordTextFormField(
     this._passwordController, {
     Key? key,
   }) : super(key: key);
 
+  @override
+  State<PasswordTextFormField> createState() => _PasswordTextFormFieldState();
+}
+
+class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
+  bool _hidePassword = true;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -567,15 +573,24 @@ class PasswordTextFormField extends StatelessWidget {
               style:
                   TextStyle(fontFamily: 'Raleway', fontWeight: FontWeight.w700),
               keyboardType: TextInputType.visiblePassword,
-              obscureText: true,
+              obscureText: _hidePassword,
               // maxLength: 100,
               decoration: InputDecoration(
+                suffixIcon: IconButton(
+                  icon: Icon(
+                      _hidePassword ? Icons.visibility : Icons.visibility_off),
+                  onPressed: () {
+                    setState(() {
+                      _hidePassword = !_hidePassword;
+                    });
+                  },
+                ),
                 labelText: 'Password',
                 labelStyle: TextStyle(fontFamily: 'Raleway'),
                 // border: OutlineInputBorder(),
                 // contentPadding: EdgeInsets.symmetric(vertical: ),
               ),
-              controller: _passwordController,
+              controller: widget._passwordController,
               validator: (value) {
                 if (value!.isEmpty || value.length < 8) {
                   return 'Password Should be 8 characters long';
@@ -592,7 +607,7 @@ class PasswordTextFormField extends StatelessWidget {
   }
 }
 
-class ConfirmPasswordTextFormField extends StatelessWidget {
+class ConfirmPasswordTextFormField extends StatefulWidget {
   final _passwordController, isLogin;
   ConfirmPasswordTextFormField(
     this._passwordController,
@@ -601,11 +616,19 @@ class ConfirmPasswordTextFormField extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<ConfirmPasswordTextFormField> createState() =>
+      _ConfirmPasswordTextFormFieldState();
+}
+
+class _ConfirmPasswordTextFormFieldState
+    extends State<ConfirmPasswordTextFormField> {
+  bool _hidePassword = true;
+  @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
         // color: Colors.red,
         duration: Duration(milliseconds: 300),
-        height: isLogin ? 0 : 75,
+        height: widget.isLogin ? 0 : 75,
         constraints: BoxConstraints(
             // minHeight: 47,
             ),
@@ -614,7 +637,7 @@ class ConfirmPasswordTextFormField extends StatelessWidget {
         // color: Colors.black,
         child: AnimatedOpacity(
           duration: Duration(milliseconds: 500),
-          opacity: isLogin ? 0 : 1,
+          opacity: widget.isLogin ? 0 : 1,
           child: Row(
             // mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.end,
@@ -653,15 +676,26 @@ class ConfirmPasswordTextFormField extends StatelessWidget {
                 style: TextStyle(
                     fontFamily: 'Raleway', fontWeight: FontWeight.w700),
                 keyboardType: TextInputType.visiblePassword,
-                obscureText: true,
+                obscureText: _hidePassword,
                 decoration: InputDecoration(
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        _hidePassword = !_hidePassword;
+                      });
+                    },
+                    icon: Icon(_hidePassword
+                        ? Icons.visibility
+                        : Icons.visibility_off),
+                  ),
                   labelText: 'Confirm Password',
                   labelStyle: TextStyle(fontFamily: 'Raleway'),
                   // border: OutlineInputBorder(),
                   // contentPadding: EdgeInsets.symmetric(vertical: ),
                 ),
                 validator: (value) {
-                  if (!isLogin && value != _passwordController.text) {
+                  if (!widget.isLogin &&
+                      value != widget._passwordController.text) {
                     return 'Passwords dont match!';
                   }
                   return null;
