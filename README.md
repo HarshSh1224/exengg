@@ -2,7 +2,7 @@
 
 ExEngg Android App flutter project.
 
-## About
+## about
 
 Exengg is an exchange platform where students, particularly Engineering students can exchange/sell insturments, study materials, goodies.
 
