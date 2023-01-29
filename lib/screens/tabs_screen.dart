@@ -1,4 +1,5 @@
 import 'package:exengg/screens/add_item_welcome_screen.dart';
+import 'package:exengg/screens/chats_screen.dart';
 
 import '../screens/add_item_screen.dart';
 import '../screens/profile_screen.dart';
@@ -24,15 +25,11 @@ class TabsScreen extends StatefulWidget {
 class _TabsScreenState extends State<TabsScreen> {
   final _scaffoldKey = new GlobalKey<ScaffoldState>();
   List<Map<String, Object>> _pages = [];
-  int _selectedPageIndex = 0;
+  int _selectedPageIndex = 2;
 
   @override
   void initState() {
     _pages = [
-      {
-        'screen': CategoriesScreen(_scaffoldKey, widget.toggleTheme),
-        'title': ''
-      },
       {
         'screen': AddItemWelcome(_scaffoldKey, widget.toggleTheme),
         'title': 'Add a new item'
@@ -42,6 +39,11 @@ class _TabsScreenState extends State<TabsScreen> {
             scaffoldKey: _scaffoldKey, themeChanger: widget.toggleTheme),
         'title': ''
       },
+      {
+        'screen': CategoriesScreen(_scaffoldKey, widget.toggleTheme),
+        'title': ''
+      },
+      {'screen': ChatsScreen(_scaffoldKey), 'title': ''},
       {
         'screen': ProfileScreen(widget.toggleTheme, widget.changeBrandColor),
         'title': ''
@@ -87,27 +89,42 @@ class _TabsScreenState extends State<TabsScreen> {
       //     )
       //   ],
       // ),
-      bottomNavigationBar: NavigationBar(
-          selectedIndex: _selectedPageIndex,
-          onDestinationSelected: _selectPage,
-          destinations: [
-            NavigationDestination(
-              icon: Icon(Icons.home_filled),
-              label: 'Home',
-            ),
-            NavigationDestination(
-              icon: Icon(Icons.add_circle_outlined),
-              label: 'Add Items',
-            ),
-            NavigationDestination(
-              icon: Icon(Icons.favorite),
-              label: 'Favourites',
-            ),
-            NavigationDestination(
-              icon: Icon(Icons.supervised_user_circle),
-              label: 'Profile',
-            ),
-          ]),
+      bottomNavigationBar: Theme(
+        data: Theme.of(context).copyWith(
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+        ),
+        child: SizedBox(
+          height: 75,
+          child: NavigationBar(
+              animationDuration: Duration(milliseconds: 800),
+              // labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+              selectedIndex: _selectedPageIndex,
+              onDestinationSelected: _selectPage,
+              destinations: [
+                NavigationDestination(
+                  icon: Icon(Icons.add_circle_outlined),
+                  label: 'Add Items',
+                ),
+                NavigationDestination(
+                  icon: Icon(Icons.favorite),
+                  label: 'Favourites',
+                ),
+                NavigationDestination(
+                  icon: Icon(Icons.home_filled),
+                  label: 'Home',
+                ),
+                NavigationDestination(
+                  icon: Icon(Icons.chat),
+                  label: 'Chats',
+                ),
+                NavigationDestination(
+                  icon: Icon(Icons.supervised_user_circle),
+                  label: 'Profile',
+                ),
+              ]),
+        ),
+      ),
       drawer: Drawer(
         child: SideDrawer(),
         backgroundColor: Colors.transparent,

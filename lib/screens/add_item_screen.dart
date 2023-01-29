@@ -41,13 +41,15 @@ class _AddItemScreenState extends State<AddItemScreen> {
   File? _productPic;
 
   void getDropdownData(String value) {
-    print(value);
-    if (value == 'Drafter')
-      formData['categoryId'] = 'd1';
-    else if (value == 'Lab Coat')
-      formData['categoryId'] = 'd2';
-    else
-      formData['categoryId'] = 'd3';
+    formData['categoryId'] = value;
+
+    // print(value);
+    // if (value == 'Drafter')
+    //   formData['categoryId'] = 'd1';
+    // else if (value == 'Lab Coat')
+    //   formData['categoryId'] = 'd2';
+    // else
+    //   formData['categoryId'] = 'd3';
   }
 
   void getProfilePic(File? profilePic) {

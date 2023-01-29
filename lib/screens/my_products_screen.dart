@@ -72,7 +72,7 @@ class _MyProductsScreenState extends State<MyProductsScreen> {
                               surfaceTintColor: Colors.transparent,
                               leading: IconButton(
                                 icon: Icon(Icons.menu,
-                                    size: 40), // change this size and style
+                                    size: 35), // change this size and style
                                 onPressed: () {
                                   _scaffoldKey2!.currentState?.openDrawer();
                                 },

@@ -45,13 +45,15 @@ class ColorPickerDialog extends StatelessWidget {
       backgroundColor: Theme.of(context).canvasColor,
       content: SingleChildScrollView(
         child: Column(children: [
-          _listTileBuilder(context, 'Blue', Color(0xFF2196F3)),
           _listTileBuilder(context, 'Purple', Color(0xFF6750A4)),
+          _listTileBuilder(context, 'Indigo', Color(0xFF3F51B5)),
+          _listTileBuilder(context, 'Blue', Color(0xFF2196F3)),
           _listTileBuilder(context, 'Teal', Color(0xFF009688)),
-          _listTileBuilder(context, 'Pink', Color(0xFFE91E63)),
-          _listTileBuilder(context, 'Yellow', Color(0xFFFFEB3B)),
           _listTileBuilder(context, 'Green', Color(0xFF4CAF50)),
+          _listTileBuilder(context, 'Yellow', Color(0xFFFFEB3B)),
           _listTileBuilder(context, 'Orange', Color(0xFFFF9800)),
+          _listTileBuilder(context, 'Deep Oragne', Color(0xFFFF5722)),
+          _listTileBuilder(context, 'Pink', Color(0xFFE91E63)),
         ]),
       ),
     );

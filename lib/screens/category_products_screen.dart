@@ -1,3 +1,4 @@
+import 'package:exengg/providers/categories_data.dart';
 import 'package:exengg/providers/products.dart';
 import 'package:flutter/material.dart';
 import '../widgets/product_item.dart';
@@ -25,8 +26,8 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final String categoryId =
-        ModalRoute.of(context)!.settings.arguments as String;
+    final int index = ModalRoute.of(context)!.settings.arguments as int;
+    final categoryId = categoriesData[index]['id'];
 
     // print(categoryProducts[0].title);
     // print('object');
@@ -143,11 +144,7 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
                           children: [
                             SizedBox(height: 55),
                             Text(
-                              categoryId == 'd1'
-                                  ? 'DRAFTERS'
-                                  : (categoryId == 'd2'
-                                      ? 'LAB COATS/Aprons'
-                                      : 'MISCELLANEOUS'),
+                              categoriesData[index]['title'],
                               style: TextStyle(
                                   fontFamily: 'BebasNeue',
                                   fontSize: 30,

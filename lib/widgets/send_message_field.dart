@@ -47,6 +47,10 @@ class _SendMessageFieldState extends State<SendMessageField> {
       'createdAt': Timestamp.now(),
       'creatorId': widget.currId,
     });
+
+    setState(() {
+      _isLoading = false;
+    });
     await FirebaseFirestore.instance
         .collection('users/${widget.personId}/chats')
         .doc('${widget.currId}')
@@ -58,10 +62,6 @@ class _SendMessageFieldState extends State<SendMessageField> {
       'text': _enteredMessage,
       'createdAt': Timestamp.now(),
       'creatorId': widget.currId,
-    });
-
-    setState(() {
-      _isLoading = false;
     });
   }
 

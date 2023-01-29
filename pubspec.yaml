@@ -111,6 +111,8 @@ flutter:
     - assets/images/feedback/5.png
     - assets/images/feedback/6.png
     - assets/images/feedback/7.png
+    - assets/images/yoga.png
+    - assets/images/books.jpg
     # - assets/painting3.jpg
     # - assets/painting4.jpg
     # - assets/painting5.jpg
@@ -149,6 +151,10 @@ flutter:
     - family: Raleway
       fonts:
         - asset: assets/fonts/Raleway-Regular.ttf
+        - asset: assets/fonts/Raleway-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Raleway-SemiBold.ttf
+          weight: 600
         - asset: assets/fonts/Raleway-Bold.ttf
           weight: 700
         - asset: assets/fonts/Raleway-ExtraBold.ttf
@@ -156,6 +162,9 @@ flutter:
     - family: MoonBold
       fonts:
         - asset: assets/fonts/Moon-Bold.ttf
+    - family: Obadiah
+      fonts:
+        - asset: assets/fonts/ObadiahRegular.ttf
 
   #   - family: Trajan Pro
   #     fonts:

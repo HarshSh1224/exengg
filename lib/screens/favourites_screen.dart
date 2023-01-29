@@ -35,7 +35,7 @@ class FavouritesScreen extends StatelessWidget {
             scrolledUnderElevation: 0,
             surfaceTintColor: Colors.transparent,
             leading: IconButton(
-              icon: Icon(Icons.menu, size: 40), // change this size and style
+              icon: Icon(Icons.menu, size: 35), // change this size and style
               onPressed: () {
                 if (scaffoldKey != null)
                   scaffoldKey!.currentState?.openDrawer();

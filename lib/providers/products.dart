@@ -43,11 +43,11 @@ class Product with ChangeNotifier {
     if (getStorage.read('favData') != 'value') {
       existingFavData =
           Map<String, bool>.from(json.decode(getStorage.read('favData')));
-      print('FOUND INSTANCE');
-      print(existingFavData);
+      // print('FOUND INSTANCE');
+      // print(existingFavData);
       getStorage.remove('favData');
     } else {
-      print('NOT FOUND INSTANCE');
+      // print('NOT FOUND INSTANCE');
     }
 
     existingFavData.forEach((key, value) {
@@ -60,8 +60,8 @@ class Product with ChangeNotifier {
 
     final favDataJson = json.encode(favData);
     getStorage.write('favData', favDataJson);
-    print('Written Instance');
-    print(favData);
+    // print('Written Instance');
+    // print(favData);
     // notifyListeners();
   }
 }
@@ -188,7 +188,7 @@ class Products with ChangeNotifier {
   // }
 
   void deleteProductFromServerById(String id) async {
-    print('DELETING DIRTY PRODUCT $id');
+    // print('DELETING DIRTY PRODUCT $id');
     await FirebaseFirestore.instance
         .collection('/products/Mf68xktMsq1nObDvCb2F/products')
         .doc(id)
@@ -203,7 +203,7 @@ class Products with ChangeNotifier {
         .collection('/products/Mf68xktMsq1nObDvCb2F/products/')
         .get();
     // print(serverData.docs.length);
-    print('FETCHED DATA LENGTH = ' + serverData.docs.length.toString());
+    // print('FETCHED DATA LENGTH = ' + serverData.docs.length.toString());
 
     // print(_items);
     Map<String, bool> existingFavData;
@@ -212,11 +212,11 @@ class Products with ChangeNotifier {
     if (getStorage.read('favData') != 'value') {
       existingFavData =
           Map<String, bool>.from(json.decode(getStorage.read('favData')));
-      print('FOUND FAV INSTANCE');
-      print(existingFavData);
+      // print('FOUND FAV INSTANCE');
+      // print(existingFavData);
     } else {
       existingFavData = {};
-      print('NOT FOUND FAV INSTANCE');
+      // print('NOT FOUND FAV INSTANCE');
     }
 
     List<Product> loadedProduct = [];
@@ -226,12 +226,12 @@ class Products with ChangeNotifier {
         continue;
       }
 
-      print('LOOPING THROUGH IDS : ' + prod.id);
+      // print('LOOPING THROUGH IDS : ' + prod.id);
       bool tempFavStatus = false;
       if (!existingFavData.isEmpty && existingFavData.containsKey(prod.id)) {
         tempFavStatus = existingFavData[prod.id]!;
       }
-      print(double.tryParse('a'));
+      // print(double.tryParse('a'));
       loadedProduct.add(
         Product(
           categoryId: prod.data()['categoryId'],
@@ -248,11 +248,11 @@ class Products with ChangeNotifier {
           isFavourite: tempFavStatus,
         ),
       );
-      print(loadedProduct);
+      // print(loadedProduct);
     }
     ;
 
-    print(loadedProduct);
+    // print(loadedProduct);
 
     _items = loadedProduct;
 
@@ -271,7 +271,7 @@ class Products with ChangeNotifier {
     //     ),
     //   );
     // });
-    print(_items);
+    // print(_items);
     notifyListeners();
   }
 }

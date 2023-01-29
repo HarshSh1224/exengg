@@ -1,5 +1,6 @@
 import 'package:exengg/providers/auth.dart';
 import 'package:exengg/screens/about_us_screen.dart';
+import 'package:exengg/screens/chats_screen.dart';
 import 'package:exengg/screens/favourites_screen.dart';
 import 'package:exengg/screens/my_products_screen.dart';
 import 'package:flutter/material.dart';
@@ -82,6 +83,16 @@ class SideDrawer extends StatelessWidget {
                           (route) => route != ModalRoute.withName('/'));
                       Navigator.of(context)
                           .pushReplacementNamed('/tabs-screen');
+                    }),
+                    _listTileBuilder(
+                        context,
+                        'Chats',
+                        Icon(
+                          Icons.chat,
+                          color: Colors.white,
+                          size: 25,
+                        ), () {
+                      Navigator.of(context).pushNamed(ChatsScreen.routeName);
                     }),
                     _listTileBuilder(
                         context,

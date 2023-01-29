@@ -1,17 +1,17 @@
+import 'package:exengg/providers/categories_data.dart';
 import 'package:flutter/material.dart';
 
 class CategoryDropdownButton extends StatefulWidget {
   void Function(String) _saveFunction;
   String? initialValue;
   CategoryDropdownButton(this._saveFunction, [initValue = 'd1']) {
-    if (initValue == 'd2') {
-      initialValue = 'Lab Coat';
-    } else if (initValue == 'd3') {
-      initialValue = 'Others';
-    } else {
-      initialValue = 'Drafter';
-    }
+    initialValue = initValue;
   }
+
+  // String titleFromId(String id) {
+  //   int idx = categoriesData.indexWhere((element) => element['id' == id]);
+  //   return categoriesData[idx]['title'];
+  // }
 
   @override
   State<CategoryDropdownButton> createState() => _CategoryDropdownButtonState();
@@ -50,31 +50,42 @@ class _CategoryDropdownButtonState extends State<CategoryDropdownButton> {
               widget._saveFunction(value!);
             },
             items: [
-              DropdownMenuItem(
-                // alignment: Alignment.centerRight,
-                child: Text('Drafter',
-                    style: TextStyle(
-                        color: Theme.of(context)
-                            .colorScheme
-                            .onSecondaryContainer)),
-                value: 'Drafter',
-              ),
-              DropdownMenuItem(
-                child: Text('Lab Coat / Apron',
-                    style: TextStyle(
-                        color: Theme.of(context)
-                            .colorScheme
-                            .onSecondaryContainer)),
-                value: 'Lab Coat',
-              ),
-              DropdownMenuItem(
-                child: Text('Others',
-                    style: TextStyle(
-                        color: Theme.of(context)
-                            .colorScheme
-                            .onSecondaryContainer)),
-                value: 'Others',
-              ),
+              ...categoriesData.map((cat) {
+                return DropdownMenuItem(
+                  // alignment: Alignment.centerRight,
+                  child: Text(cat['title'],
+                      style: TextStyle(
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onSecondaryContainer)),
+                  value: cat['id'] as String,
+                );
+              }).toList(),
+              // DropdownMenuItem(
+              //   // alignment: Alignment.centerRight,
+              //   child: Text('DRAFTER',
+              //       style: TextStyle(
+              //           color: Theme.of(context)
+              //               .colorScheme
+              //               .onSecondaryContainer)),
+              //   value: 'DRAFTER',
+              // ),
+              // DropdownMenuItem(
+              //   child: Text('Lab Coat / Apron',
+              //       style: TextStyle(
+              //           color: Theme.of(context)
+              //               .colorScheme
+              //               .onSecondaryContainer)),
+              //   value: 'LABCOAT/APRON',
+              // ),
+              // DropdownMenuItem(
+              //   child: Text('Miscellaneous',
+              //       style: TextStyle(
+              //           color: Theme.of(context)
+              //               .colorScheme
+              //               .onSecondaryContainer)),
+              //   value: 'Miscellaneous',
+              // ),
             ],
             value: _dropDownValue,
             onChanged: (value) {
