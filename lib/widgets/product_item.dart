@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+import 'package:shimmer_animation/shimmer_animation.dart';
 import '../providers/auth.dart';
 import '../providers/products.dart';
 
@@ -172,11 +173,31 @@ class _ProductItemState extends State<ProductItem> {
                 child: Container(
                   width: double.infinity,
                   height: 200,
-                  child: FadeInImage.assetNetwork(
-                    placeholder: 'assets/images/circular_progress.gif',
-                    image: widget.productItem.imageUrl,
+                  child: Image.network(
+                    widget.productItem.imageUrl,
                     fit: BoxFit.cover,
+                    frameBuilder: (BuildContext context, Widget child,
+                        int? frame, bool wasSynchronouslyLoaded) {
+                      if (wasSynchronouslyLoaded) {
+                        return child;
+                      }
+                      return frame == null
+                          ? Shimmer(
+                              color: Theme.of(context).colorScheme.background,
+                              child: Container(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .surfaceVariant,
+                              ),
+                            )
+                          : child;
+                    },
                   ),
+                  // child: FadeInImage.assetNetwork(
+                  //   placeholder: 'assets/images/circular_progress.gif',
+                  //   image: widget.productItem.imageUrl,
+                  //   fit: BoxFit.cover,
+                  // ),
                   // color: Colors.white,
                 ),
               ),

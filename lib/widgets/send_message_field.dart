@@ -26,7 +26,7 @@ class _SendMessageFieldState extends State<SendMessageField> {
   }
 
   void _submit() async {
-    FocusScope.of(context).unfocus();
+    // FocusScope.of(context).unfocus();
     _controller.clear();
     _enteredMessage.trim();
     print(_enteredMessage);
