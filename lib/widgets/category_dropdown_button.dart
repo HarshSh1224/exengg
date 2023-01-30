@@ -46,8 +46,16 @@ class _CategoryDropdownButtonState extends State<CategoryDropdownButton> {
               style: TextStyle(
                   color: Theme.of(context).colorScheme.onSecondaryContainer),
             ),
+            validator: (value) {
+              if (value == null) {
+                return 'Please choose a category';
+              } else
+                return null;
+            },
             onSaved: (value) {
-              widget._saveFunction(value!);
+              print('SAVE DROPDOWNL');
+              print('DROPDOWN VALUE' + (value == null ? 'null' : value));
+              widget._saveFunction(value ?? 'null');
             },
             items: [
               ...categoriesData.map((cat) {

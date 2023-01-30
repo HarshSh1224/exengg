@@ -157,7 +157,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
           .child(documentId);
       await ref.putFile(_productPic!);
       final url = await ref.getDownloadURL();
-      print(url);
+      // print(url);
 
       formData['imageUrl'] = url;
       formData['createDate'] = DateTime.now().toIso8601String();
@@ -185,17 +185,17 @@ class _AddItemScreenState extends State<AddItemScreen> {
 
   Future<void> _updateDataToServer() async {
     try {
-      print('UPDATING PRODUCT');
+      // print('UPDATING PRODUCT');
       final documentId = formData['id'] as String;
       if (_productPic != null) {
-        print('UPDATING IMAGE AS WELL');
+        // print('UPDATING IMAGE AS WELL');
         final ref = await FirebaseStorage.instance
             .ref()
             .child('productImages')
             .child(documentId);
         await ref.putFile(_productPic!);
         final url = await ref.getDownloadURL();
-        print(url);
+        // print(url);
 
         formData['imageUrl'] = url;
       }
@@ -209,21 +209,22 @@ class _AddItemScreenState extends State<AddItemScreen> {
           .doc(documentId)
           .set(formData);
 
-      print('UPDATE COMPLETE');
+      // print('UPDATE COMPLETE');
     } catch (error) {
       throw error;
     }
   }
 
   String? _initialValueFromTitle(String title) {
+    // print(formData['phone']);
     switch (title) {
       case 'Product Title':
         return formData['title'] as String;
       case 'Description':
         return formData['description'] as String;
       case 'Price':
-        return null;
-      case 'Phone Number':
+        return formData['price'] == -1 ? null : formData['price'].toString();
+      case 'Contact Number':
         return formData['phone'] as String;
       default:
         return '';
@@ -290,10 +291,10 @@ class _AddItemScreenState extends State<AddItemScreen> {
             double.parse(value!) < 0) {
           return 'Please enter a valid number';
         }
-        if (title == 'Phone Number' && double.tryParse(value!) == null) {
+        if (title == 'Contact Number' && double.tryParse(value!) == null) {
           return 'Please enter a valid phone number';
         }
-        if (title == 'Phone Number' && (value!.length != 10)) {
+        if (title == 'Contact Number' && (value!.length != 10)) {
           return 'Phone number has to be 10 digit long';
         }
         return null;
@@ -304,7 +305,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
         if (title == 'Price')
           formData['price'] =
               checkboxValue == true ? -1.0 : double.parse(value!);
-        if (title == 'Phone Number') formData['phone'] = value!;
+        if (title == 'Contact Number') formData['phone'] = value!;
       },
     );
   }
@@ -343,7 +344,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
       }
     }
 
-    // print(formData);
+    // print(formData['phone'].runtimeType);
 
     return Scaffold(
       body: StreamBuilder<User?>(
@@ -629,11 +630,15 @@ class _AddItemScreenState extends State<AddItemScreen> {
                                           padding: const EdgeInsets.all(18.0),
                                           child: _isLoading
                                               ? FittedBox(
-                                                  child:
-                                                      CircularProgressIndicator(
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .onPrimary,
+                                                  child: SizedBox(
+                                                    height: 26,
+                                                    width: 26,
+                                                    child:
+                                                        CircularProgressIndicator(
+                                                      color: Theme.of(context)
+                                                          .colorScheme
+                                                          .onPrimary,
+                                                    ),
                                                   ),
                                                 )
                                               : Text(

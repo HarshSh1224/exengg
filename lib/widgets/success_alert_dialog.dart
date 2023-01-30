@@ -116,7 +116,7 @@ class _SuccessDialogState extends State<SuccessDialog>
                 child: Container(
                   constraints: BoxConstraints(maxWidth: 200),
                   child: Text(
-                    'Make Sure to delete your product once it is sold. Otherwise, you may keep getting calls.',
+                    'Make Sure to delete your product once it is sold. Otherwise, you may keep getting messages.',
                     textAlign: TextAlign.justify,
                     style: TextStyle(
                       fontFamily: 'Raleway',
