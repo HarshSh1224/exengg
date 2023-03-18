@@ -1,10 +1,8 @@
 import 'package:exengg/screens/add_item_welcome_screen.dart';
 import 'package:exengg/screens/chats_screen.dart';
-
-import '../screens/add_item_screen.dart';
+import 'package:new_version/new_version.dart';
 import '../screens/profile_screen.dart';
 import 'package:flutter/material.dart';
-import '../screens/auth_screen.dart';
 import '../screens/favourites_screen.dart';
 import '../widgets/side_drawer.dart';
 import '../screens/categories_screen.dart';
@@ -29,6 +27,9 @@ class _TabsScreenState extends State<TabsScreen> {
 
   @override
   void initState() {
+    final newVersion = NewVersion();
+    newVersion.showAlertIfNecessary(context: context);
+
     _pages = [
       {
         'screen': AddItemWelcome(_scaffoldKey, widget.toggleTheme),

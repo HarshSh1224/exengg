@@ -83,17 +83,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
             trailing: title == 'Dark Theme'
-                ? Switch(
-                    activeColor: Theme.of(context).colorScheme.primary,
-                    value: Theme.of(context).colorScheme.brightness ==
-                            Brightness.dark
-                        ? true
-                        : false,
-                    onChanged: (value) {
-                      setState(() {
-                        widget._themeChanger();
-                      });
-                    })
+                ? Transform.scale(
+                    scale: 0.9,
+                    child: Switch(
+                        activeColor: Theme.of(context).colorScheme.primary,
+                        value: Theme.of(context).colorScheme.brightness ==
+                                Brightness.dark
+                            ? true
+                            : false,
+                        onChanged: (value) {
+                          setState(() {
+                            widget._themeChanger();
+                          });
+                        }),
+                  )
                 : Icon(Icons.arrow_forward_ios_rounded),
           ),
           splashColor: Theme.of(context).colorScheme.background,

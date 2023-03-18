@@ -288,7 +288,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
         }
         if (checkboxValue == false &&
             title == 'Price' &&
-            double.parse(value!) < 0) {
+            (double.parse(value!) < 0 || double.parse(value) >= 100000)) {
           return 'Please enter a valid number';
         }
         if (title == 'Contact Number' && double.tryParse(value!) == null) {

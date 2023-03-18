@@ -14,6 +14,7 @@ import '../providers/products.dart';
 import '../providers/auth.dart';
 import '../screens/tabs_screen.dart';
 import '../screens/category_products_screen.dart';
+import '../screens/forgot_password_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,14 +29,14 @@ Color brandColor = const Color(0xFF6750A4);
 
 Future<void> getThemeFromDevice() async {
   final getStorage = await GetStorage();
-  getStorage.writeIfNull('brightness', 'dark');
+  getStorage.writeIfNull('brightness', 'light');
 
-  if (getStorage.read('brightness') == 'dark') {
+  if (getStorage.read('brightness') == 'light') {
     // print('READING INSTANCE DARK');
-    themeBrightness = Brightness.dark;
+    themeBrightness = Brightness.light;
   } else {
     // print('READING INSTANCE LIGHT');
-    themeBrightness = Brightness.light;
+    themeBrightness = Brightness.dark;
   }
 
   getStorage.writeIfNull('brandColor', 'Color(0xFF6750A4)');
@@ -121,6 +122,8 @@ class _MyAppState extends State<MyApp> {
                     FeedbackForm.routeName: (context) =>
                         FeedbackForm(brandColor),
                     ChatsScreen.routeName: (context) => ChatsScreen(),
+                    ForgotPasswordScreen.routeName: (context) =>
+                        ForgotPasswordScreen(),
                   },
                 );
               },

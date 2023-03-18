@@ -1,10 +1,8 @@
-import 'dart:math';
-
 import 'package:exengg/widgets/socials_about_us.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../providers/about_data.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../providers/about_data.dart';
 
 class About extends StatefulWidget {
   static const routeName = '/about-us-page';
@@ -42,16 +40,20 @@ class _AboutState extends State<About> {
               padding: const EdgeInsets.only(top: 38.0),
               child: Text(
                 'About Us',
-                style: TextStyle(
-                  fontFamily: 'BebasNeue',
-                  fontSize: 30,
-                  // color: Theme.of(context).colorScheme.onBackground
-                  // fontWeight: FontWeight.bold,
-                ),
+                style:
+                    TextStyle(fontFamily: 'BebasNeue', fontSize: 30, shadows: [
+                  Shadow(
+                      // offset: Offset(0, 0),
+                      // blurRadius: 40,
+                      ),
+                ]
+                        // color: Theme.of(context).colorScheme.onBackground
+                        // fontWeight: FontWeight.bold,
+                        ),
               ),
             ),
             background: Image.asset(
-              "assets/images/about/bg.jpg",
+              "assets/images/bg.jpg",
               fit: BoxFit.cover,
             )),
       ),
@@ -148,7 +150,7 @@ class _AboutUsContentState extends State<AboutUsContent> {
                       style: TextStyle(fontWeight: FontWeight.bold)),
                   TextSpan(
                       text:
-                          ' has been created to facilitate an exchange platform where students, particularly Engineering students can exchange insturments, study materials, goodies and even ideas/opinions.'),
+                          ' is created to facilitate an exchange platform where students can exchange instruments, study materials, and other stuff.'),
                 ]),
           ),
         ),
@@ -256,7 +258,7 @@ class _AboutUsContentState extends State<AboutUsContent> {
         Padding(
           padding: const EdgeInsets.only(top: 20, left: 18, right: 18),
           child: Text(
-            'Who We Are?',
+            'Who Are We?',
             style: TextStyle(
                 fontFamily: 'MoonBold',
                 fontSize: 20,
@@ -283,7 +285,7 @@ class _AboutUsContentState extends State<AboutUsContent> {
                       style: TextStyle(fontWeight: FontWeight.bold)),
                   TextSpan(
                       text:
-                          ' are a group of Second year students currently enrolled in Software Engineering program at DTU. We aim to bring Technology to create a network and bring in the ease of connecting with your fellow mates!'),
+                          ' are a group of students currently studying Engineering at DTU. We aim to bring Technology to create a network and bring in the ease of connecting with your fellow mates!'),
                 ]),
           ),
         ),
@@ -300,17 +302,17 @@ class _AboutUsContentState extends State<AboutUsContent> {
             // crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
-                Icons.email_outlined,
-                color: Theme.of(context).colorScheme.outline,
-                size: 17,
-              ),
-              SizedBox(
-                width: 5,
-              ),
+              // Icon(
+              //   Icons.email_outlined,
+              //   color: Theme.of(context).colorScheme.outline,
+              //   size: 17,
+              // ),
+              // SizedBox(
+              //   width: 5,
+              // ),
               FittedBox(
                 child: Text(
-                  'For Queries/Sugesstions Contact :',
+                  'Follow us on :',
                   style: TextStyle(
                       fontFamily: 'Roboto',
                       fontSize: 12,
@@ -322,33 +324,93 @@ class _AboutUsContentState extends State<AboutUsContent> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 5, left: 23, right: 23),
-          child: FittedBox(
-            child: GestureDetector(
-              onTap: () async {
-                await Clipboard.setData(
-                    ClipboardData(text: 'dtuexengg@gmail.com'));
-                ScaffoldMessenger.of(context).removeCurrentSnackBar();
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text('Email Copied!'),
-                )));
-              },
-              child: Text(
-                'dtuexengg@gmail.com',
-                style: TextStyle(
-                  fontFamily: 'Raleway',
-                  fontSize: 13,
-                  // letterSpacing: 2.0,
-                  fontWeight: FontWeight.w700,
-                  decoration: TextDecoration.underline,
-                  color: Colors.blue,
-                ),
+          padding:
+              const EdgeInsets.only(top: 15, left: 60, right: 60, bottom: 45),
+          child: Opacity(
+            opacity: 0.8,
+            child: MediaQuery(
+              data: MediaQuery.of(context).copyWith(
+                invertColors: Theme.of(context).brightness == Brightness.dark
+                    ? true
+                    : false,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  IconButton(
+                    padding: EdgeInsets.zero,
+                    constraints: BoxConstraints(),
+                    onPressed: () async {
+                      final Uri url =
+                          Uri.parse('https://twitter.com/ExenggTweets');
+                      if (await canLaunchUrl(url)) {
+                        await launchUrl(url,
+                            mode: LaunchMode.externalNonBrowserApplication);
+                      }
+                    },
+                    icon: Image.asset('assets/images/twitter.png', height: 60),
+                  ),
+                  IconButton(
+                      padding: EdgeInsets.zero,
+                      constraints: BoxConstraints(),
+                      onPressed: () async {
+                        final Uri url = Uri.parse(
+                            'https://www.linkedin.com/in/exengg-%E3%85%A4-65183326a/');
+                        if (await canLaunchUrl(url)) {
+                          await launchUrl(url,
+                              mode: LaunchMode.externalNonBrowserApplication);
+                        }
+                      },
+                      icon: Image.asset('assets/images/linkedinsquare.png',
+                          height: 60)),
+                  IconButton(
+                    padding: EdgeInsets.zero,
+                    constraints: BoxConstraints(),
+                    onPressed: () async {
+                      await Clipboard.setData(
+                          ClipboardData(text: 'dtuexengg@gmail.com'));
+                      ScaffoldMessenger.of(context).removeCurrentSnackBar();
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text('Email Copied!'),
+                      )));
+                    },
+                    icon: Image.asset('assets/images/gmail.png', height: 57),
+                  ),
+                ],
               ),
             ),
           ),
         ),
+        // Padding(
+        //   padding: const EdgeInsets.only(top: 5, left: 23, right: 23),
+        //   child: FittedBox(
+        //     child: GestureDetector(
+        //       onTap: () async {
+        //         await Clipboard.setData(
+        //             ClipboardData(text: 'dtuexengg@gmail.com'));
+        //         ScaffoldMessenger.of(context).removeCurrentSnackBar();
+        //         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        //             content: Padding(
+        //           padding: const EdgeInsets.all(8.0),
+        //           child: Text('Email Copied!'),
+        //         )));
+        //       },
+        //       child: Text(
+        //         'dtuexengg@gmail.com',
+        //         style: TextStyle(
+        //           fontFamily: 'Raleway',
+        //           fontSize: 13,
+        //           // letterSpacing: 2.0,
+        //           fontWeight: FontWeight.w700,
+        //           decoration: TextDecoration.underline,
+        //           color: Colors.blue,
+        //         ),
+        //       ),
+        //     ),
+        //   ),
+        // ),
         // SizedBox(
         //   height: 20,
         // ),
@@ -378,9 +440,9 @@ class _AboutUsContentState extends State<AboutUsContent> {
         //     ],
         //   ),
         // ),
-        SizedBox(
-          height: 50,
-        )
+        // SizedBox(
+        //   height: 50,
+        // )
       ],
     );
   }

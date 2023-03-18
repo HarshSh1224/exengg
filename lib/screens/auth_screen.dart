@@ -5,6 +5,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../screens/forgot_password_screen.dart';
 
 class AuthScreen extends StatefulWidget {
   static const routeName = '/auth-screen';
@@ -224,8 +225,32 @@ class _AuthScreenState extends State<AuthScreen> {
                   height: _isLogin ? 10 : 10,
                 ),
                 PasswordTextFormField(_passwordController),
+                if (_isLogin)
+                  SizedBox(
+                    height: 10,
+                  ),
+                if (_isLogin)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context)
+                              .pushNamed(ForgotPasswordScreen.routeName);
+                        },
+                        child: Text(
+                          'Forgot password',
+                          style: TextStyle(
+                            fontFamily: 'MoonBold',
+                            color: Theme.of(context).colorScheme.primary,
+                            fontSize: 13,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 SizedBox(
-                  height: _isLogin ? 50 : 10,
+                  height: _isLogin ? 25 : 10,
                 ),
                 // if (!_isLogin)
                 ConfirmPasswordTextFormField(_passwordController, _isLogin),

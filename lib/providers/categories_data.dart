@@ -19,12 +19,18 @@ List<Map> categoriesData = [
   },
   {
     'index': 3,
+    'id': 'd6',
+    'title': 'Scientific Calculator',
+    'image': 'assets/images/calc2.png',
+  },
+  {
+    'index': 4,
     'id': 'd4',
     'title': 'Yoga Mats',
     'image': 'assets/images/yoga.png',
   },
   {
-    'index': 4,
+    'index': 5,
     'id': 'd3',
     'title': 'Miscellaneous',
     'image': 'assets/images/misc.png',
