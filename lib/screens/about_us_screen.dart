@@ -66,24 +66,6 @@ class _AboutState extends State<About> {
         ]),
       )
     ]));
-
-    // Container(
-    //   width: MediaQuery.of(context).size.width,
-    //   decoration: BoxDecoration(
-    //     image: DecorationImage(
-    //       image: AssetImage("assets/bg.jpg"),
-    //       fit: BoxFit.cover,
-    //     ),
-    //   ),
-    //   //   child:
-    //     Column(
-    //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //       children: [
-
-    //       ],
-    //     ),
-    //   ),
-    // );
   }
 }
 
@@ -103,12 +85,6 @@ class AboutUsContent extends StatefulWidget {
 
 class _AboutUsContentState extends State<AboutUsContent> {
   double _showEmailDropHeight = 0;
-  String? encodeQueryParameters(Map<String, String> params) {
-    return params.entries
-        .map((MapEntry<String, String> e) =>
-            '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
-        .join('&');
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -183,7 +159,6 @@ class _AboutUsContentState extends State<AboutUsContent> {
               controller: widget.pageController,
               itemBuilder: (context, i) {
                 return Container(
-                  // height: 600,
                   padding: EdgeInsets.only(right: 20),
                   child: Stack(
                     children: [
@@ -231,8 +206,6 @@ class _AboutUsContentState extends State<AboutUsContent> {
                                   color: Colors.white,
                                   fontSize: 12,
                                   fontFamily: 'Raleway'
-                                  // fontWeight: FontWeight.w
-                                  // fontStyle: FontStyle.italic,
                                   ),
                             ),
                           ],
@@ -302,21 +275,12 @@ class _AboutUsContentState extends State<AboutUsContent> {
             // crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Icon(
-              //   Icons.email_outlined,
-              //   color: Theme.of(context).colorScheme.outline,
-              //   size: 17,
-              // ),
-              // SizedBox(
-              //   width: 5,
-              // ),
               FittedBox(
                 child: Text(
                   'Follow us on :',
                   style: TextStyle(
                       fontFamily: 'Roboto',
                       fontSize: 12,
-                      // letterSpacing: 2.0,
                       color: Theme.of(context).colorScheme.outline),
                 ),
               ),
@@ -383,66 +347,6 @@ class _AboutUsContentState extends State<AboutUsContent> {
             ),
           ),
         ),
-        // Padding(
-        //   padding: const EdgeInsets.only(top: 5, left: 23, right: 23),
-        //   child: FittedBox(
-        //     child: GestureDetector(
-        //       onTap: () async {
-        //         await Clipboard.setData(
-        //             ClipboardData(text: 'dtuexengg@gmail.com'));
-        //         ScaffoldMessenger.of(context).removeCurrentSnackBar();
-        //         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        //             content: Padding(
-        //           padding: const EdgeInsets.all(8.0),
-        //           child: Text('Email Copied!'),
-        //         )));
-        //       },
-        //       child: Text(
-        //         'dtuexengg@gmail.com',
-        //         style: TextStyle(
-        //           fontFamily: 'Raleway',
-        //           fontSize: 13,
-        //           // letterSpacing: 2.0,
-        //           fontWeight: FontWeight.w700,
-        //           decoration: TextDecoration.underline,
-        //           color: Colors.blue,
-        //         ),
-        //       ),
-        //     ),
-        //   ),
-        // ),
-        // SizedBox(
-        //   height: 20,
-        // ),
-        // SizedBox(
-        //   height: 100,
-        // ),
-        // Padding(
-        //   padding: const EdgeInsets.only(top: 20, left: 18, right: 18),
-        //   child: Row(
-        //     mainAxisAlignment: MainAxisAlignment.center,
-        //     children: [
-        //       Text(
-        //         'App Built on',
-        //         style: TextStyle(
-        //             fontFamily: 'MoonBold',
-        //             fontSize: 10,
-        //             // letterSpacing: 2.0,
-        //             color: Theme.of(context).colorScheme.outline),
-        //       ),
-        //       SizedBox(
-        //         width: 10,
-        //       ),
-        //       Image.asset(
-        //         'assets/images/flutter.png',
-        //         height: 30,
-        //       ),
-        //     ],
-        //   ),
-        // ),
-        // SizedBox(
-        //   height: 50,
-        // )
       ],
     );
   }
